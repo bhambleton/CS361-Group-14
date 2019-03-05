@@ -1,0 +1,84 @@
+{{#if serverMessage}}
+    <h1>SERVER MESSAGE</h1>
+    <h2>{{serverMessage}}</h2>
+{{/if}}
+
+<!--Show the current selection, if any-->
+{{#if fields}}
+    <h1>Current List:</h1>
+
+    <p>
+        The entirety of the table you selected is below.
+        <br/>
+        <br/>
+        You can also add a new entry to this table by filling out the bottom row and pressing the "Submit" button at the far-right end of the row.
+    </p>
+
+    <table border='true' class='hor_scroll'>
+        <thead id ='tableHead'>
+        <tr>
+            {{#each fields}}
+                <th>{{name}}</th>
+            {{/each}}
+        </tr>
+        </thead>
+        <tbody id='tableData'>
+        {{#each results}}
+            <tr id={{@key}}>
+                {{#each this}}
+                    <td>{{this}}</td>
+                {{/each}}
+
+                <!--
+                <td>Edit Placeholder</td>
+                <td>
+                    Delete
+                    <form id="deleteForm" action="{{route_to}}" method="post">
+                        <fieldset>
+                            <input id="target_{{@key}}" type="hidden">
+                            <script>
+                                document.getElementById("target_{{@key}}").setAttribute("name", "PRIMKEY_TO_DELETE");
+                                document.getElementById("target_{{@key}}").setAttribute("value", document.getElementById("{{@key}}").firstElementChild.textContent);
+                            </script>
+                            <input id="del_identifier_{{@key}}" name="type" value="del" type="hidden">
+                            <input id="delete_{{@key}}" name="delete_{{@key}}" type="submit">
+                        </fieldset>
+                    </form>
+                </td>
+                -->
+            </tr>
+        {{/each}}
+        <tr>
+
+        <!--
+            <form id="insertForm" action="{{route_to}}" method="post">
+                <fieldset>
+                    {{#if drops}}
+                        <tr><td colspan="4">{{insert_instructions}}</td></tr>
+                        {{#each drops}}
+                            <td>
+                                <input id="{{@key}}" name="{{@key}}" list="{{@key}}_list">
+                                <datalist id="{{@key}}_list">
+                                    {{#each this}}<option value="{{this}}"></option>{{/each}}
+                                </datalist>
+                            </td>
+                        {{/each}}
+                    {{else}}
+                        {{#each fields}}
+                            <td><input id="{{name}}" name="{{name}}" type="text" placeholder="Enter a {{name}}"></td>
+                        {{/each}}
+                    {{/if}}
+                    {{#if dropSupps}}
+                        {{#each dropSupps}}
+                            <td><input id="{{name}}" name="{{name}}" type="text" placeholder="Enter a {{name}}"></td>
+                        {{/each}}
+                    {{/if}}
+                    <td colspan="2"><input id="insertSubmit" type="submit"></td>
+                </fieldset>
+            </form>
+        </tr>
+        -->
+
+        </tbody>
+    </table>
+{{/if}}
