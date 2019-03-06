@@ -1,0 +1,66 @@
+<!--
+Open this in your browser to test the server.
+Adjust the form target address:port to wherever you have the server running
+-->
+
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>POST Test</title>
+    </head>
+
+    <body>
+
+    <div class="my-form">
+        <!-- This sample form contains text, numerical, password, and radio inputs -->
+
+        <form action="http://localhost:8657/client-target" method=post>
+            <fieldset>
+
+                <legend>POST Form</legend>
+
+                Enter stuff below and hit submit to test the server. If communication was successful, you'll
+                get a raw message back, including whatever you sent.
+                <br/>
+                <br/>
+
+                Write some text!
+                <input type="text" name="text_input">
+                </input>
+                <br/>
+                <br/>
+
+                Enter a number. Or don't, whatever.
+                <input type="number" name="numerical_input">
+                </input>
+                <br/>
+                <br/>
+
+                Pick a candy!
+                <br/>
+                <input type="radio" name="candy" value="KitKat"> KitKat
+                </input>
+                <br/>
+
+                <input type="radio" name="candy" value="Reese's"> Reese's
+                </input>
+                <br/>
+
+                <input type="radio" name="candy" value="Crunch"> Crunch
+                </input>
+                <br/>
+                <br/>
+                <br/>
+
+                <input type=submit value="Submit">
+                </input>
+
+            </fieldset>
+        </form>
+    </div>
+
+    </body>
+
+</html>

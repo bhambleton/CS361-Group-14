@@ -11,10 +11,8 @@
 var express = require('express');
 var mysql = require('./public/scripts/dbConnection.js');
 var bodyParser = require('body-parser');
-
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
@@ -22,7 +20,7 @@ app.set('view engine', 'handlebars');
 app.set('port', 8657);
 app.set('mysql', mysql);
 
-/*
+/* outside access stuff that I don't think we need
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -37,8 +35,11 @@ app.get('/', function(req,res)
     res.render('home', dum);
 });
 
-/*rawtable handlers*/
-app.use('/db', require('./public/scripts/sqlTest.js'));
+/*server-test handlers*/
+app.use('/server-test/db', require('./public/scripts/serverTest.js'));
+
+/*client request handlers*/
+app.use('/client-target', require('./public/scripts/clientTarget.js'));
 
 /*error handlers*/
 app.use(function(req,res)
