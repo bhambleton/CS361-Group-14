@@ -1,18 +1,46 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Talia's Cornucopia - App Server</title>
-        <link rel="stylesheet" type="text/css" href="/style/style.css">
-    </head>
+<head>
+    <title>Talia's Cornucopia - App Server</title>
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
     <body>
-        {{{body}}}
-
-        <h2>Server Navigation</h2>
-        <ul>
-            <li><a href="/server-test/db/service-test">Service DB Test (SELECT *)</a></li>
-        </ul>
-
-        <h1><a href="/">Return to homepage</a></h1>
-
+      <div>
+        <h1>I need...</h1>
+        <div id="navItemContainer">
+          <ul class="navList">
+            <li>
+              <a href=""><i class="servicesIcon fas fa-briefcase" id="workIcon"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="servicesIcon fas fa-bed shelterIcon"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="servicesIcon fas fa-user-md" id="healthcareIcon"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="servicesIcon fas fa-shopping-basket" id="itemsIcon"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="servicesIcon fas fa-utensils" id="foodIcon"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="servicesIcon fas fa-tshirt" id="clothingIcon"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="servicesIcon fas fa-wifi" id=wifiIcon></i></a>
+            </li>
+            <!--<li><a href="/db/service_test">Service DB Test (SELECT *)</a></li>-->
+          </ul>
+        </div>
+    </div>
+    <div id="backButtonContainer">
+        <a href="/"><i class="fas fa-arrow-left"></i></a>
+    </div>
+    
+    {{{body}}}
+    
+    <!--<div>Icons made by <a href="https://www.flaticon.com/authors/ocha" title="OCHA">OCHA</a> from <a href="https://www.flaticon.com/"  title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 	title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
     </body>
 </html>
