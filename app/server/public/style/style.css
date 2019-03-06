@@ -1,1 +1,57 @@
-/*maybe we'll update this later, who knows. don't really care about CSS on the server for now*/
+#id
+{
+    visibility: hidden;
+}
+
+td
+{
+    border: none;
+}
+
+
+/* NAV ITEMS */
+div#navItemContainer {
+  display: flex;
+  margin: auto;
+}
+
+.servicesIcon{
+  font-size: 50px;
+  color: darkcyan;
+}
+
+ul.navList {
+  border-radius: 15px;
+  background-color: lightcyan;
+  margin: auto;
+}
+
+ul.navList li {
+  display: inline-flex;
+  list-style-type: none;
+  padding: 20px;
+}
+
+.servicesIcon:hover {
+  color: grey;
+}
+
+/*END NAV ITEMS */
+
+
+#backButtonContainer {
+  float: left;
+  border-radius: 50%;
+  background-color: darkcyan;
+  padding: 10px;
+}
+
+.fas.fa-arrow-left {
+  font-size: 40px;
+  color: white;
+}
+
+
+a:active, a:visited {
+  text-decoration: none;
+}
