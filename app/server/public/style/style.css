@@ -9,33 +9,41 @@ td
 }
 
 
-/* NAV ITEMS */
 div#navItemContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   margin: auto;
+  width: 400px;
+  border-radius: 10px;
+  background-color: lightgrey;
+
 }
 
 .servicesIcon{
   font-size: 50px;
-  color: darkcyan;
+  color: black;
 }
 
-ul.navList {
-  border-radius: 15px;
-  background-color: lightcyan;
-  margin: auto;
+div.navItemContainer {
+  padding: 25px;
 }
+
 
 ul.navList li {
   display: inline-flex;
   list-style-type: none;
-  padding: 20px;
+
 }
 
 .servicesIcon:hover {
   color: grey;
 }
 
+.navButton {
+  border: none;
+  background: none;
+}
 /*END NAV ITEMS */
 
 
