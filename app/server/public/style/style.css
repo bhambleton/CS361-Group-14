@@ -8,7 +8,7 @@ td
     border: none;
 }
 
-
+/* NAV ITEMS */
 div#navItemContainer {
   display: flex;
   flex-wrap: wrap;
