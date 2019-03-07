@@ -5,6 +5,10 @@
  *
  * Attribution: Some structure and syntax inspired by J. Wolford's BSG sample web app available on GitHub here:
  *              https://github.com/wolfordj/CS340-Sample-Web-App/
+ *
+ * Update Log
+ *
+ *              2019/03/06  JAK     - archived as we have decided to not construct an entirely-separate client module
  *********************************************************************************************************************/
 
 module.exports = function()

@@ -5,9 +5,18 @@
  *
  * Attribution: Some structure and syntax inspired by J. Wolford's BSG sample web app available on GitHub here:
  *              https://github.com/wolfordj/CS340-Sample-Web-App/
+ *
+ * Update Log:
+ *          2019/03/05  JAK     - added entry to handle independent-client post requests at /client-target/
+ *
+ *          2019/03/06  JAK     - removed /client-target/ handler path, as we decided to not use entirely-separate client module
+ *                              - refactored into two main paths:
+ *                                  1) /client/, which is where we actually implement the app
+ *                                  2) /dev/, which is where we do stuff like run raw DB queries or play around with
+ *                                     the web scraper or whatever
  *********************************************************************************************************************/
 
-/*setup server*/
+//setup server
 var express = require('express');
 var mysql = require('./public/scripts/dbConnection.js');
 var bodyParser = require('body-parser');
@@ -20,7 +29,8 @@ app.set('view engine', 'handlebars');
 app.set('port', 8657);
 app.set('mysql', mysql);
 
-/* outside access stuff that I don't think we need
+//access control stuff that I don't think we need
+/*
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -28,20 +38,26 @@ app.use(function(req, res, next) {
 });
 */
 
-/*homepage*/
+//server root - simply choose client or dev environment
 app.get('/', function(req,res)
 {
     var dum;
-    res.render('home', dum);
+
+    res.render('server_root', dum);
 });
 
-/*server-test handlers*/
-app.use('/server-test/db', require('./public/scripts/serverTest.js'));
+//client handlers - most of our "Persistent Layer" happens in here
+app.use('/client', require('./public/scripts/clientHandle.js'));
 
-/*client request handlers*/
-app.use('/client-target', require('./public/scripts/clientTarget.js'));
+//dev handlers (for testing or general tom-foolery
+app.use('/dev', require('./public/scripts/devHandle.js'));
 
-/*error handlers*/
+//independent-client request handlers
+/* disabled - not using a client-independent model
+app.use('/client-target', require('../_archive/clientTarget.js'));
+*/
+
+//error handlers
 app.use(function(req,res)
 {
     res.status(404);
@@ -56,7 +72,7 @@ app.use(function(err, req, res, next)
     res.render('500');
 });
 
-/*log server start to console*/
+//log server start to console
 app.listen(app.get('port'), function()
 {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
