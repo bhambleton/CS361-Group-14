@@ -25,22 +25,23 @@ for (var i = 0; i < buttons.length; i++)
         //can i get a little closure
         return function()
         {
-            //get zip or set zip to null if empty
+            //get zip
             var zip = document.getElementsByName('zipcodeInput')[0].value;
+
+            //if zip hasn't been entered then yell at them to enter one
             if (!zip)
             {
-                //debug
-                //console.log('zip was not supplied, setting zip = NULL');
-
-                zip = null;
+                alert("Please enter a zipcode and then select a service!");
             }
+            else //continue w/ request
+            {
+                //report to browser console
+                console.log('Client about to send request for resource ' + id + ' in zip ' + zip);
 
-            //report to browser console
-            console.log('Client about to send request for resource ' + id + ' in zip ' + zip);
-
-            //send info to server
-            var req = new XMLHttpRequest();
-            //yadayada
+                //send info to server
+                var req = new XMLHttpRequest();
+                //yadayada
+            }
         }
     }(b.id));
 }
