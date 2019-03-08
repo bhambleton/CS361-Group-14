@@ -1,12 +1,31 @@
-#id
-{
-    visibility: hidden;
+.hidden {
+  display: none;
+}
+body {
+}
+/* HEADER ITEMS */
+header {
+  width: 400px;
+  height: 60px;
+  margin: auto;
+  display: flex;
+  border: 5px solid black;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+div.homeButtonContainer{
+
+}
+div.loginButtonContainer{
+
 }
 
-td
-{
-    border: none;
+.fas.fa-home {
+  font-size: 40px;
+  color: grey;
 }
+/* END HEADER ITEMS */
 
 /* NAV ITEMS */
 div#navItemContainer {
@@ -23,6 +42,7 @@ div#navItemContainer {
 .servicesIcon{
   font-size: 50px;
   color: black;
+  cursor: pointer;
 }
 
 div.navItemContainer {
@@ -46,11 +66,24 @@ ul.navList li {
 }
 /*END NAV ITEMS */
 
+/*ZIPCODE INPUT MODAL */
+#searchModal {
+  width: 380px;
+  border-radius: 10px;
+  background-color: lightgrey;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+/*END ZIP INPUT */
 
 #backButtonContainer {
-  float: left;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
   border-radius: 50%;
-  background-color: darkcyan;
+  background-color: darkgrey;
   padding: 10px;
 }
 
