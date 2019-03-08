@@ -79,7 +79,7 @@ ul.navList li {
 /*END ZIP INPUT */
 
 #backButtonContainer {
-  position: absolute;
+  position: fixed;
   bottom: 15px;
   left: 15px;
   border-radius: 50%;
