@@ -44,7 +44,7 @@ for (var i = 0; i < buttons.length; i++)
             }
 	    else if (zip === "12345")
 	    {
-		alert("Could not find that service locally, here is a social worker's contact information to assist you\n\nName: Jane McSocialWorker\nPhone Number: (123) 456-7890\nCompany: mySocialWorkerEmployer")
+		alert("Could not find that service locally, here is a social worker's contact information to assist you\n\nName: Jane McSocialWorker\nPhone Number: (123) 456-7890\nEmail: jmcsocial@localcompany.com\nCompany: mySocialWorkerEmployer")
 		console.log("Couldn't find any resources, here is a nearby social worker's contact information!");
 	    }
 
@@ -55,7 +55,7 @@ for (var i = 0; i < buttons.length; i++)
 
                 //create and open AJAX get request
                 var req = new XMLHttpRequest();
-                req.open("POST", "http://localhost:9854/client/", true);
+                req.open("POST", "http://localhost:8657/client/", true);
 
                 //put HTML headers on the POST request so the server knows to parse it as a POST
                 req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
