@@ -3,23 +3,24 @@
     <h2>{{serverMessage}}</h2>
 {{/if}}
 
+
 <!--Show the current selection, if any-->
-{{#if fields}}
+{{#if results}}
     <div id="servicesResultsContainer">
         <div id="resultsContent">
-            <h3>Results for {{type}}s ZIP code {{zip}}:</h3>
+            <h3>Results: {{type}} in ZIP code {{zip}}:</h3>
 
             <ol id="resultsList">
                 {{#each results}}
                 <li class="resultsItem" id="{{id}}">
                     <div class="servicesInfoContainer">
-                        <p class="infoLine"><span id="serviceName">{{name}}</span>&nbsp<span id="servicePhoneNumber">{{phone}}</span></p>
+                        <p class="infoLine"><span id="serviceName">{{name}}</span><span id="servicePhoneNumber">{{phone}}</span></p>
                         <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
-                        <p><span id="serviceStreetNum">32</span>&nbsp<span id="serviceStreetName">{{address_street}}</span></p>
+                        <p><span id="serviceStreet">{{address_street}}</span></p>
                         <p>
-                            <span id="serviceCity">{{address_city}}, </span>&nbsp<span id="serviceState">{{address_state}}</span>&nbsp<span id="serviceZip">{{address_zip}}</span>
+                            <span id="serviceCity">{{address_city}}, </span><span id="serviceState">{{address_state}}</span>&nbsp<span id="serviceZip">{{address_zip}}</span>
                         </p>
-                        <br><strong>Notes</strong><br>
+                        <br><strong>Notes</strong>
                         <p>{{notes}}</p>
                     </div>
                 </li>

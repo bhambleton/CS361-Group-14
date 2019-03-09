@@ -16,6 +16,7 @@ module.exports = function()
     //define routing object
     var router = express.Router();
 
+    /*ROUTES*/
     //generic GET hits to <server root>/client/ simply render home page
     router.get('/', function(req,res)
     {
@@ -28,7 +29,7 @@ module.exports = function()
         res.render('client_home', dum);
     });
 
-    //if any POST hits <server root>/client/, the client is making some request
+    //if any POST hits <server root>/client/, the client is making some request for info
     router.post('/', function(req,res,next)
     {
         //report user access to console
@@ -44,30 +45,30 @@ module.exports = function()
         //define data package to return to user
         var context = {};
 
-        //if no info is passed, then just show the overall client home
-        if (userParams.length === 0)
+        //here, later, customize the query to send to the DB. for now, just grab everything from SERVICE
+
+        //get stuff from the database
+        var mysql = req.app.get('mysql');
+        mysql.pool.query('SELECT * FROM SERVICE', function(err, rows, fields)
         {
-            //debug
-            console.log('Server detected !req.body so just rendering home client home');
+            if(err)
+            {
+                next(err);
+                return;
+            }
 
-            var dum;
+            //define the fields in the template page to be rendered
+            context.results = rows;
+            context.fields = fields;
+            context.type = req.body.id;
+            context.zip = req.body.zip;
 
-            //render the page
-            res.render('client_home', dum);
-        }
-        else //parse the client's request
-        {
-            //do stuff
-            context.zip = '99999';
-            context.name =  'test name';
-            context.address_street = '123 fun lane';
-        }
+            //define the address to show
+            context.route_to = '/';
 
-        //define the address to show
-        context.route_to = '/';
-
-        //render the results page and pass the info that handlebars will use to populate its {{}} brackets
-        res.render('client_search_results', context)
+            //render the results page and pass the info that handlebars will use to populate its {{}} brackets
+            res.render('client_search_results', context);
+        });
     });
 
     //do it!

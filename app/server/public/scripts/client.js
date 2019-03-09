@@ -38,7 +38,7 @@ for (var i = 0; i < buttons.length; i++)
                 //report to browser console
                 console.log('Client about to send request for resource ' + id + ' in zip ' + zip);
 
-                //create and open AJAX post request
+                //create and open AJAX get request
                 var req = new XMLHttpRequest();
                 req.open("POST", "http://localhost:8657/client/", true);
 
@@ -53,24 +53,22 @@ for (var i = 0; i < buttons.length; i++)
                 //before sending, configure the request object to report on its status.
                 req.addEventListener('load',function()
                 {
+                    //if the server response is ready, do stuff with it
                     if(req.status >= 200 && req.status < 400)
                     {
-                        console.log("Request sent and loaded\n");
+                        //log ready state to browser
+                        console.log("Request successfully sent and returned with the response:\n" + req.response);
 
-                        //report server's response object
-                        console.log(req.response);
+                        //since I can't figure out how to render the page by itself, store the results in the div
+                        document.getElementById("resultsContainer").innerHTML = req.response;
 
-
-
-                        //parse the response
-                        //var parsedResponse = JSON.parse(req.response);
-                        //console.log(parsedResponse);
                     }
                     else
                     {
                         console.log("Error! Request not successfully sent/loaded.");
                     }
                 });
+
 
                 //debug
                 console.log('Sending a POST to server with contents:');
@@ -83,7 +81,7 @@ for (var i = 0; i < buttons.length; i++)
                 req.send(context);
 
                 //stop the client from doing whatever it would normally do; server is handling page renders
-                event.preventDefault();
+                //event.preventDefault();
             }
         }
     }(b.id));
