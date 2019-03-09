@@ -5,6 +5,14 @@
  *
  *********************************************************************************************************************/
 
+//function to validate a zip code using regex. Source: https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-12.php 
+function validateZipCode(inputZip) {
+    var regex = /^\d{5}$/;
+
+    return regex.test(inputZip);
+}
+
+
 //find buttons
 var buttons = document.getElementsByTagName('button');
 
@@ -29,7 +37,8 @@ for (var i = 0; i < buttons.length; i++)
             var zip = document.getElementsByName('zipcodeInput')[0].value;
 
             //if zip hasn't been entered then yell at them to enter one
-            if (!zip)
+            if (!validateZipCode(zip))
+            //if (!zip) //leaving this here in case we don't want to use the method I provided
             {
                 alert("Please enter a zipcode and then select a service!");
             }
