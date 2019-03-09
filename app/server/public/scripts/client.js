@@ -42,14 +42,55 @@ for (var i = 0; i < buttons.length; i++)
             {
                 alert("Please enter a zipcode and then select a service!");
             }
-            else //continue w/ request
+            else //continue w/ sending request to server
             {
                 //report to browser console
                 console.log('Client about to send request for resource ' + id + ' in zip ' + zip);
 
-                //send info to server
+                //create and open AJAX get request
                 var req = new XMLHttpRequest();
-                //yadayada
+                req.open("POST", "http://localhost:8657/client/", true);
+
+                //put HTML headers on the POST request so the server knows to parse it as a POST
+                req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                //package the data object to send to the server
+                var context = {};
+                context.id = id;
+                context.zip = zip;
+
+                //before sending, configure the request object to report on its status.
+                req.addEventListener('load',function()
+                {
+                    //if the server response is ready, do stuff with it
+                    if(req.status >= 200 && req.status < 400)
+                    {
+                        //log ready state to browser
+                        console.log("Request successfully sent and returned with the response:\n" + req.response);
+
+                        //since I can't figure out how to render the page by itself, store the results in the div
+                        document.getElementById("resultsContainer").innerHTML = req.response;
+
+                    }
+                    else
+                    {
+                        console.log("Error! Request not successfully sent/loaded.");
+                    }
+                });
+
+
+                //debug
+                console.log('Sending a POST to server with contents:');
+                console.log(context);
+
+                //stringify the contents so they make sense to the server
+                context = JSON.stringify(context);
+
+                //now send the request, along with whatever info the server needs to know
+                req.send(context);
+
+                //stop the client from doing whatever it would normally do; server is handling page renders
+                //event.preventDefault();
             }
         }
     }(b.id));

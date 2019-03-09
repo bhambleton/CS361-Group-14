@@ -30,13 +30,11 @@ app.set('port', 8657);
 app.set('mysql', mysql);
 
 //access control stuff that I don't think we need
-/*
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-*/
 
 //server root - simply choose client or dev environment
 app.get('/', function(req,res)
@@ -51,11 +49,6 @@ app.use('/client', require('./public/scripts/clientHandle.js'));
 
 //dev handlers (for testing or general tom-foolery
 app.use('/dev', require('./public/scripts/devHandle.js'));
-
-//independent-client request handlers
-/* disabled - not using a client-independent model
-app.use('/client-target', require('../_archive/clientTarget.js'));
-*/
 
 //error handlers
 app.use(function(req,res)
