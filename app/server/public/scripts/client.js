@@ -55,7 +55,7 @@ for (var i = 0; i < buttons.length; i++)
 
                 //create and open AJAX get request
                 var req = new XMLHttpRequest();
-                req.open("POST", "http://flip3.engr.oregonstate.edu:9854/client/", true);
+                req.open("POST", "http://localhost:9854/client/", true);
 
                 //put HTML headers on the POST request so the server knows to parse it as a POST
                 req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
