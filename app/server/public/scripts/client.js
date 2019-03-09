@@ -38,10 +38,16 @@ for (var i = 0; i < buttons.length; i++)
 
             //if zip hasn't been entered then yell at them to enter one
             if (!validateZipCode(zip))
-            //if (!zip) //leaving this here in case we don't want to use the method I provided
+            //if (!zip) //leaving this here in case we don't want to use the method Casey provided
             {
                 alert("Please enter a zipcode and then select a service!");
             }
+	    else if (zip === "12345")
+	    {
+		alert("Could not find that service locally, here is a social worker's contact information to assist you\n\nName: Jane McSocialWorker\nPhone Number: (123) 456-7890\nCompany: mySocialWorkerEmployer")
+		console.log("Couldn't find any resources, here is a nearby social worker's contact information!");
+	    }
+
             else //continue w/ sending request to server
             {
                 //report to browser console
@@ -49,7 +55,7 @@ for (var i = 0; i < buttons.length; i++)
 
                 //create and open AJAX get request
                 var req = new XMLHttpRequest();
-                req.open("POST", "http://localhost:8657/client/", true);
+                req.open("POST", "http://flip3.engr.oregonstate.edu:9854/client/", true);
 
                 //put HTML headers on the POST request so the server knows to parse it as a POST
                 req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
