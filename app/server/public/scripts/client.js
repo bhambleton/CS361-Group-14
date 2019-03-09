@@ -33,14 +33,57 @@ for (var i = 0; i < buttons.length; i++)
             {
                 alert("Please enter a zipcode and then select a service!");
             }
-            else //continue w/ request
+            else //continue w/ sending request to server
             {
                 //report to browser console
                 console.log('Client about to send request for resource ' + id + ' in zip ' + zip);
 
-                //send info to server
+                //create and open AJAX post request
                 var req = new XMLHttpRequest();
-                //yadayada
+                req.open("POST", "http://localhost:8657/client/", true);
+
+                //put HTML headers on the POST request so the server knows to parse it as a POST
+                req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                //package the data object to send to the server
+                var context = {};
+                context.id = id;
+                context.zip = zip;
+
+                //before sending, configure the request object to report on its status.
+                req.addEventListener('load',function()
+                {
+                    if(req.status >= 200 && req.status < 400)
+                    {
+                        console.log("Request sent and loaded\n");
+
+                        //report server's response object
+                        console.log(req.response);
+
+
+
+                        //parse the response
+                        //var parsedResponse = JSON.parse(req.response);
+                        //console.log(parsedResponse);
+                    }
+                    else
+                    {
+                        console.log("Error! Request not successfully sent/loaded.");
+                    }
+                });
+
+                //debug
+                console.log('Sending a POST to server with contents:');
+                console.log(context);
+
+                //stringify the contents so they make sense to the server
+                context = JSON.stringify(context);
+
+                //now send the request, along with whatever info the server needs to know
+                req.send(context);
+
+                //stop the client from doing whatever it would normally do; server is handling page renders
+                event.preventDefault();
             }
         }
     }(b.id));

@@ -5,73 +5,30 @@
 
 <!--Show the current selection, if any-->
 {{#if fields}}
-    <h1>Current List:</h1>
+    <div id="servicesResultsContainer">
+        <div id="resultsContent">
+            <h3>Results for {{type}}s ZIP code {{zip}}:</h3>
 
-    <table border='true' class='hor_scroll'>
-        <thead id = 'tableHead'>
-        <tr>
-            {{#each fields}}
-                <th>{{name}}</th>
-            {{/each}}
-        </tr>
-        </thead>
-        <tbody id='tableData'>
-        {{#each results}}
-            <tr id={{@key}}>
-                {{#each this}}
-                    <td>{{this}}</td>
+            <ol id="resultsList">
+                {{#each results}}
+                <li class="resultsItem" id="{{id}}">
+                    <div class="servicesInfoContainer">
+                        <p class="infoLine"><span id="serviceName">{{name}}</span>&nbsp<span id="servicePhoneNumber">{{phone}}</span></p>
+                        <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
+                        <p><span id="serviceStreetNum">32</span>&nbsp<span id="serviceStreetName">{{address_street}}</span></p>
+                        <p>
+                            <span id="serviceCity">{{address_city}}, </span>&nbsp<span id="serviceState">{{address_state}}</span>&nbsp<span id="serviceZip">{{address_zip}}</span>
+                        </p>
+                        <br><strong>Notes</strong><br>
+                        <p>{{notes}}</p>
+                    </div>
+                </li>
                 {{/each}}
+            </ol>
+        </div>
+    </div>
 
-                <!--
-                <td>Edit Placeholder</td>
-                <td>
-                    Delete
-                    <form id="deleteForm" action="{{route_to}}" method="post">
-                        <fieldset>
-                            <input id="target_{{@key}}" type="hidden">
-                            <script>
-                                document.getElementById("target_{{@key}}").setAttribute("name", "PRIMKEY_TO_DELETE");
-                                document.getElementById("target_{{@key}}").setAttribute("value", document.getElementById("{{@key}}").firstElementChild.textContent);
-                            </script>
-                            <input id="del_identifier_{{@key}}" name="type" value="del" type="hidden">
-                            <input id="delete_{{@key}}" name="delete_{{@key}}" type="submit">
-                        </fieldset>
-                    </form>
-                </td>
-                -->
-            </tr>
-        {{/each}}
-        <tr>
+    <div class="mapContainer">
 
-        <!--
-            <form id="insertForm" action="{{route_to}}" method="post">
-                <fieldset>
-                    {{#if drops}}
-                        <tr><td colspan="4">{{insert_instructions}}</td></tr>
-                        {{#each drops}}
-                            <td>
-                                <input id="{{@key}}" name="{{@key}}" list="{{@key}}_list">
-                                <datalist id="{{@key}}_list">
-                                    {{#each this}}<option value="{{this}}"></option>{{/each}}
-                                </datalist>
-                            </td>
-                        {{/each}}
-                    {{else}}
-                        {{#each fields}}
-                            <td><input id="{{name}}" name="{{name}}" type="text" placeholder="Enter a {{name}}"></td>
-                        {{/each}}
-                    {{/if}}
-                    {{#if dropSupps}}
-                        {{#each dropSupps}}
-                            <td><input id="{{name}}" name="{{name}}" type="text" placeholder="Enter a {{name}}"></td>
-                        {{/each}}
-                    {{/if}}
-                    <td colspan="2"><input id="insertSubmit" type="submit"></td>
-                </fieldset>
-            </form>
-        </tr>
-        -->
-
-        </tbody>
-    </table>
+    </div>
 {{/if}}
