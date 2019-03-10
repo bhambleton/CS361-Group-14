@@ -35,40 +35,80 @@ module.exports = function()
         //report user access to console
         console.log('Somebody somewhere sent a POST to root/client/');
 
-        //store the user parameters stored in the request body
-        var userParams = req.body;
+        //store the user parameters stored in the request body into a GLOBAL variable
+        /*have to do this stupid Object.keys thing because for some reason
+        the parameters are getting passed to the server in a long string, as the name of the first key*/
+        userParams = JSON.parse(Object.keys(req.body)[0]);
 
         //log to server console whatever the user requested
         console.log('POST request contained:');
         console.log(userParams);
 
-        //define data package to return to user
-        var context = {};
+        //define GLOBGAL data object to be filled by scraper/DB query
+        results = [];
+        fields = [];
 
-        //here, later, customize the query to send to the DB. for now, just grab everything from SERVICE
-
-        //get stuff from the database
-        var mysql = req.app.get('mysql');
-        mysql.pool.query('SELECT * FROM SERVICE', function(err, rows, fields)
+        //if user chose temp work, then activate scraper. else, query DB
+        if (userParams.id === 'tempWork')
         {
-            if(err)
-            {
-                next(err);
-                return;
-            }
+            //debug
+            console.log("Activating web scraper");
 
-            //define the fields in the template page to be rendered
-            context.results = rows;
-            context.fields = fields;
-            context.type = req.body.id;
-            context.zip = req.body.zip;
+            //temp dum data
+            results = [{name: 'Groundskeeper at Fake Business', address_street: '15 Tea Party Way', address_city: 'Boston', address_state: 'MA', notes: 'no redcoats allowed'}];
 
-            //define the address to show
-            context.route_to = '/';
+            //activate scraper
+
+            //render the results page and pass the info that handlebars will use to populate its {{}} brackets
+            var context =
+                {
+                    "results": results,
+                    "type": userParams.id,
+                    "zip": userParams.zip
+                };
+
+            console.log(context);
 
             //render the results page and pass the info that handlebars will use to populate its {{}} brackets
             res.render('client_search_results', context);
-        });
+        }
+        else
+        {
+            //debug
+            console.log("Sending query to DB");
+
+            //here, later, customize the query to send to the DB. for now, just grab everything from SERVICE
+
+            //get stuff from the database
+            var mysql = req.app.get('mysql');
+
+            mysql.pool.query('SELECT * FROM SERVICE', function (err, sqlRows, sqlFields)
+            {
+                if (err)
+                {
+                    next(err);
+                    return;
+                }
+
+                //store the returned DB fields in the template page to be rendered
+                results = sqlRows;
+                fields = sqlFields;
+
+                //build the context object to render the results to user
+                var context =
+                    {
+                        "results": results,
+                        "fields": fields,
+                        "type": userParams.id,
+                        "zip": userParams.zip
+                    };
+
+                console.log(context);
+
+                //render the results page and pass the info that handlebars will use to populate its {{}} brackets
+                res.render('client_search_results', context);
+            });
+        }
     });
 
     //do it!

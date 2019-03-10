@@ -47,8 +47,16 @@ div#navItemContainer {
 
 div.navItemContainer {
   padding: 25px;
+  text-align: center;
+  width: 20%;
 }
 
+div.navItemLabel {
+  display: flex;
+  justify-content: center;
+  font-family: Georgia;
+  font-weight: bold;
+}
 
 ul.navList li {
   display: inline-flex;

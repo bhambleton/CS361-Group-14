@@ -16,46 +16,82 @@
             <button class="navButton" id="tempWork">
                 <i class="servicesIcon fas fa-briefcase" id="workIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Work
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="shelter">
                 <i class="servicesIcon fas fa-bed" id="shelterIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Shelter
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="food">
                 <i class="servicesIcon fas fa-utensils" id="foodIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Food
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="healthcare">
                 <i class="servicesIcon fas fa-user-md" id="healthcareIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Healthcare
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="govHelp">
                 <i class="servicesIcon fas fa-landmark" id=govIcon></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Government Assistance
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="socialservices">
                 <i class="servicesIcon fas fa-hands-helping" id="socialservicesIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Social Services
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="items">
                 <i class="servicesIcon fas fa-shopping-basket" id="itemsIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Items
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="clothing">
                 <i class="servicesIcon fas fa-tshirt" id="clothingIcon"></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Clothing
+            </div>
         </div>
         <div class="navItemContainer">
             <button class="navButton" id="wifi">
                 <i class="servicesIcon fas fa-wifi" id=wifiIcon></i>
             </button>
+            <br>
+            <div class="navItemLabel">
+                Internet
+            </div>
         </div>
     </div>
     <br>
@@ -65,7 +101,14 @@
     </div>
 
 </div>
-
+<br/>
+for now, 3 possibilities:<br/>
+1: zip is not 5 digits in length. user is asked to enter 5 digits.<br/>
+2: zip = 12345, which says 'oh no no data' and returns the name of a social worker<br/>
+3: zip is 5 digits and <> 12345. user clicked temp work. dummy temp work info is returned.<br/>
+4: zip is 5 digits and <> 12345. user clicked any button but temp work. dummy data **actually pulled from the DB** is returned.<br/>
+<br/>
+<br/>
 <div id="resultsContainer"></div>
 
 <script src='/scripts/client.js'></script>

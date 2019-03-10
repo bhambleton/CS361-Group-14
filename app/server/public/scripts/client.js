@@ -40,13 +40,13 @@ for (var i = 0; i < buttons.length; i++)
             if (!validateZipCode(zip))
             //if (!zip) //leaving this here in case we don't want to use the method Casey provided
             {
-                alert("Please enter a zipcode and then select a service!");
+                alert("Please enter a five-digit zipcode, and then select a service!");
             }
-	    else if (zip === "12345")
-	    {
-		alert("Could not find that service locally, here is a social worker's contact information to assist you\n\nName: Jane McSocialWorker\nPhone Number: (123) 456-7890\nEmail: jmcsocial@localcompany.com\nCompany: mySocialWorkerEmployer")
-		console.log("Couldn't find any resources, here is a nearby social worker's contact information!");
-	    }
+            else if (zip === "12345")
+            {
+            alert("Could not find that service locally, here is a social worker's contact information to assist you\n\nName: Jane McSocialWorker\nPhone Number: (123) 456-7890\nEmail: jmcsocial@localcompany.com\nCompany: mySocialWorkerEmployer")
+            console.log("Couldn't find any resources, here is a nearby social worker's contact information!");
+            }
 
             else //continue w/ sending request to server
             {
@@ -72,11 +72,10 @@ for (var i = 0; i < buttons.length; i++)
                     if(req.status >= 200 && req.status < 400)
                     {
                         //log ready state to browser
-                        console.log("Request successfully sent and returned with the response:\n" + req.response);
+                        console.log("Request sent, and server response received.");
 
                         //since I can't figure out how to render the page by itself, store the results in the div
                         document.getElementById("resultsContainer").innerHTML = req.response;
-
                     }
                     else
                     {
@@ -84,19 +83,15 @@ for (var i = 0; i < buttons.length; i++)
                     }
                 });
 
-
                 //debug
                 console.log('Sending a POST to server with contents:');
                 console.log(context);
 
                 //stringify the contents so they make sense to the server
-                context = JSON.stringify(context);
+                var context = JSON.stringify(context);
 
                 //now send the request, along with whatever info the server needs to know
                 req.send(context);
-
-                //stop the client from doing whatever it would normally do; server is handling page renders
-                //event.preventDefault();
             }
         }
     }(b.id));
