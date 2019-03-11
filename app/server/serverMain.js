@@ -22,6 +22,8 @@ var mysql = require('./public/scripts/dbConnection.js');
 var bodyParser = require('body-parser');
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+fs = require("fs");
+proc = require("child_process").spawnSync;
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));

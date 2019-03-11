@@ -74,6 +74,9 @@ for (var i = 0; i < buttons.length; i++)
                         //log ready state to browser
                         console.log("Request sent, and server response received.");
 
+                        //debug
+                        console.log(req.response);
+
                         //since I can't figure out how to render the page by itself, store the results in the div
                         document.getElementById("resultsContainer").innerHTML = req.response;
                     }

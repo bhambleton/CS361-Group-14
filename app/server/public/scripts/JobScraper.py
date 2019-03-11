@@ -19,7 +19,7 @@ soup = BeautifulSoup(response.text, 'html.parser')
 print('\n')
 
 # COMMENT: create the inital csv file containing the list of jobs with the first row being the lables
-with open('jobList.csv', 'w') as jobList:
+with open('../jobList.csv', 'w') as jobList:
     jobWriter = csv.writer(jobList, delimiter = '|')
     jobWriter.writerows([['Title', 'Description', 'URL', 'Street', 'City', 'ZIP']])
 jobList.close()
@@ -87,7 +87,7 @@ for url in nonDuplicates:
 
     # NOTE: The csv file is delimited using the pipe ('|') instead of a comma so the grammar of the description can remain intact
     # COMMENT: Writes the current job to the jobList csv file
-    with open('jobList.csv', 'a') as jobList:
+    with open('../jobList.csv', 'a') as jobList:
         jobWriter = csv.writer(jobList, delimiter = '|')
         jobWriter.writerow([filteredTitle, filteredDesc, jobURL, jobStreet, jobCity, jobZip])
     jobList.close()

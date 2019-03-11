@@ -17,7 +17,7 @@
                         <p class="infoLine"><span id="serviceName">{{name}}</span></p>
                         <p class="infoLine"><span id="servicePhoneNumber">{{phone}}</span></p>
                         <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
-                        <p class="infoLine"><span id="serviceStreet>{{address_street}}</span></p>
+                        <p class="infoLine"><span id="serviceStreet">{{address_street}}</span></p>
                         <p class="infoLine"><span id="serviceCity">{{address_city}}, </span><span id="serviceState">{{address_state}}</span> <span id="serviceZip">{{address_zip}}</span>
                         </p>
                         <br><strong>Notes</strong><br>
@@ -32,4 +32,11 @@
     <div class="mapContainer">
 
     </div>
+{{/if}}
+
+{{#if jobVomit}}
+    {{#each jobVomit}}
+        <li>{{this}}</li>
+        <br/>
+    {{/each}}
 {{/if}}

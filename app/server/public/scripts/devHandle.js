@@ -87,6 +87,47 @@ module.exports = function()
 
     });
 
+    //playround w/ scraper output
+    router.get('/temp_work_scraper', function(req,res,next)
+    {
+        //report start
+        console.log('Starting scraper process...');
+
+        //debug - what the heck is the dang cwd
+        //console.log(proc('dir',null,'pipe').toString('utf-8'));
+
+        //run scraper and send stdio to server output
+        console.log(proc('py',["public/scripts/JobScraper.py", null, 'pipe']).output.toString('utf-8'));
+
+        //report done
+        console.log('...scraper process complete!');
+
+        //read file output by scraper proc and split by delimiter
+        //source: https://stackoverflow.com/questions/34857458/reading-local-text-file-into-a-javascript-array
+        var jobsRaw = fs.readFileSync("../jobList.csv", 'utf-8');   //read in all text raw
+        var jobsByLine = jobsRaw.split("\r\r\n");                   //split it by the line delimiter
+
+        //get rid of he first line that just has headers, and get rid of last line that is blank
+        jobsByLine.shift();
+        jobsByLine.pop();
+
+        //debug
+        console.log(jobsRaw);
+        console.log(jobsByLine);
+
+        //now for every line element in the newly created array, delimit further by the | delimiter
+        for (var curLine in jobsByLine)
+        {
+            console.log("curLine is: " + jobsByLine[curLine]);
+            jobsByLine[curLine] = jobsByLine[curLine].split("|");
+        }
+
+        //debug
+        console.log(jobsByLine);
+
+        res.send(jobsByLine);
+    });
+
     //do it!
     return router;
 }();

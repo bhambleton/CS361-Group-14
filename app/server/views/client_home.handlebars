@@ -95,17 +95,17 @@
         </div>
     </div>
     <br>
-
+s
     <div id="searchModal">
         <input type="text" name="zipcodeInput" pattern="[0-9]{5}" placeholder="Enter ZIP Code">
     </div>
 
 </div>
 <br/>
-for now, 3 possibilities:<br/>
+for now, 4 possibilities:<br/>
 1: zip is not 5 digits in length. user is asked to enter 5 digits.<br/>
 2: zip = 12345, which says 'oh no no data' and returns the name of a social worker<br/>
-3: zip is 5 digits and <> 12345. user clicked temp work. dummy temp work info is returned.<br/>
+3: zip is 5 digits and <> 12345. user clicked temp work. web scraper activates and takes ~20 seconds, but actually spits out jobs in the 97330 area!<br/>
 4: zip is 5 digits and <> 12345. user clicked any button but temp work. dummy data **actually pulled from the DB** is returned.<br/>
 <br/>
 <br/>
