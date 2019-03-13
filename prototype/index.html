@@ -10,20 +10,25 @@
 
 </head>
     <body>
-
-      <header class="hidden">
-
-            <button type="button" name="Login">Login</button>
+      <br>
+      <header class="">
 
           <div id="homeButtonContainer">
             <a href="/"><i class="servicesIcon fas fa-home"></i></a>
           </div>
+          <button type="button" id="loginButton" onclick="document.getElementById('loginBackdrop').classList.remove('hidden'); document.getElementById('loginModalContainer').classList.remove('hidden');">
+            Login</button>
       </header>
-      <br><br>
+      <br>
 
 
     <div class="" id="homepageContainer">
-
+      <div class="">
+        <div id="searchModal">
+          <input type="number" name="zipcodeInput" placeholder="Enter ZIP Code">
+        </div>
+      </div>
+      <br>
       <div id="navItemContainer">
           <div class="navItemContainer">
             <button class="navButton" id="tempWorkButton">
@@ -71,38 +76,28 @@
             </button>
           </div>
       </div>
-      <br>
-      <div class="hidden">
-      <div id="searchModal">
-        <input type="number" name="zipcodeInput" placeholder="Enter ZIP Code">
-      </div></div>
+
 
     </div>
 
-    <div id="servicesResultsContainer">
-      <div id="resultsContent">
-        <h3>Results for ZIP code 32548:</h3>
-          <div class="mapContainer">
+    <div id="loginBackdrop" class=""></div>
+    <div id="loginModalContainer" class="">
+      <div id="loginModalContents">
+        <div id="inputContainer">
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter Username" name="username" required>
 
-
-          </div>
-          <ol id="resultsList">
-              <li class="resultsItem">
-                  <div class="servicesInfoContainer">
-                    <p class="infoLine"><span id="serviceName">Pop-Up Service Provider</span>&nbsp<span id="servicePhoneNumber">850.555.5555</span></p>
-                    <p class="infoLine"><span id="serviceEmail">somethingSomeone@gmail.com</span></p>
-                    <p><span id="serviceStreetNum">32</span>&nbsp<span id="serviceStreetName">Bay Drive</span></p>
-                    <p>
-                      <span id="serviceCity">Happy Valley,</span>&nbsp<span id="serviceState">FL</span>&nbsp<span id="serviceZip">32548</span>
-                    </p>
-                    <br><strong>Notes</strong><br>
-                    <p>This is an amazing place. Super cool.</p>
-                  </div>
-              </li>
-          </ol>
+            <label for="password">Password</label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+        </div>
+        <div id="loginModalButtonsContainer">
+          <button type="submit" class="loginButton" >
+            <i class="fas fa-check"></i></button>
+          <button type="button" class="loginButton" onclick="document.getElementById('loginBackdrop').classList.add('hidden'); document.getElementById('loginModalContainer').classList.add('hidden');">
+            <i class="fas fa-times"></i></button>
+        </div>
       </div>
     </div>
-
 
 
 

@@ -5,25 +5,48 @@ body {
 }
 /* HEADER ITEMS */
 header {
-  width: 400px;
+  width: 377px;
   height: 60px;
   margin: auto;
   display: flex;
-  border: 5px solid black;
+  border-radius: 10px;
+  background-color: skyblue;
   justify-content: space-around;
   align-items: center;
   padding: 15px;
 }
-div.homeButtonContainer{
 
+div#homeButtonContainer{
+  border-radius: 50%;
+  background-color: white;
+  padding: 10px;
 }
-div.loginButtonContainer{
 
+div#loginButtonContainer{
+}
+
+button#loginButton{
+  border: none;
+  background: none;
+  border-radius: 5px;
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: white;
+  letter-spacing: 2px;
+}
+
+button#loginButton:hover{
+  color: lightblue;
 }
 
 .fas.fa-home {
-  font-size: 40px;
-  color: grey;
+  font-size: 35px;
+  color: skyblue;
+}
+
+.fas.fa-home:hover{
+  color: lightblue;
 }
 /* END HEADER ITEMS */
 
@@ -158,6 +181,61 @@ div.servicesInfoContainer p{
 }
 /* END RESULTS PAGE STUFF */
 
+/* LOGIN ITEMS */
+div#loginModalContents{
+  width: 400px;
+  height: 200px;
+  padding: 10px;
+  margin: 150px auto;
+  background-color: white;
+  border-radius: 12px;
+}
+
+div#inputContainer{
+  padding: 10px;
+}
+
+button.loginButton{
+  border: none;
+  background: none;
+  font-size: 25px;
+}
+
+
+div#loginModalButtonsContainer{
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+div#loginModalContainer{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+div#loginBackdrop{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+/* END LOGIN ITEMS */
 
 a:active, a:visited {
   text-decoration: none;
