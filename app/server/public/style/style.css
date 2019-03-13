@@ -36,7 +36,6 @@ div#navItemContainer {
   width: 400px;
   border-radius: 10px;
   background-color: lightgrey;
-
 }
 
 .servicesIcon{
@@ -72,6 +71,16 @@ ul.navList li {
   border: none;
   background: none;
 }
+
+input.navButton
+{
+  position: absolute;
+  height: 50px;
+  width: 60px;
+  cursor: pointer;
+  background: transparent;
+}
+
 /*END NAV ITEMS */
 
 /*ZIPCODE INPUT MODAL */

@@ -1,6 +1,6 @@
 <header class="hidden">
 
-    <button type="button" name="Login">Login</button>
+    <input type="button" type="button" name="Login">Login
 
     <div id="homeButtonContainer">
         <a href="/"><i class="servicesIcon fas fa-home"></i></a>
@@ -10,95 +10,89 @@
 
 
 <div id="homepageContainer">
+    <form id="searchForm" action="/client/results" method="POST">
+        <div id="navItemContainer">
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Temporary Work" id="tempWork">
+                    <i class="servicesIcon fas fa-briefcase" id="workIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Work
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Shelter" id="shelter">
+                    <i class="servicesIcon fas fa-bed" id="shelterIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Shelter
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Food" id="food">
+                    <i class="servicesIcon fas fa-utensils" id="foodIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Food
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Healthcare" id="healthcare">
+                    <i class="servicesIcon fas fa-user-md" id="healthcareIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Healthcare
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Government Help" id="govHelp">
+                    <i class="servicesIcon fas fa-landmark" id=govIcon></i>
+                <br>
+                <div class="navItemLabel">
+                    Government Assistance
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Social_Services" id="socialservices">
+                    <i class="servicesIcon fas fa-hands-helping" id="socialservicesIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Social Services
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Items" id="items">
+                    <i class="servicesIcon fas fa-shopping-basket" id="itemsIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Items
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Clothing" id="clothing">
+                    <i class="servicesIcon fas fa-tshirt" id="clothingIcon"></i>
+                <br>
+                <div class="navItemLabel">
+                    Clothing
+                </div>
+            </div>
+            <div class="navItemContainer">
+                <input type="button" class="navButton" name="Internet" id="wifi">
+                    <i class="servicesIcon fas fa-wifi" id=wifiIcon></i>
+                <br>
+                <div class="navItemLabel">
+                    Internet
+                </div>
+            </div>
+        </div>
+        <br>
 
-    <div id="navItemContainer">
-        <div class="navItemContainer">
-            <button class="navButton" id="tempWork">
-                <i class="servicesIcon fas fa-briefcase" id="workIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Work
-            </div>
+        <div id="searchModal">
+            <input type="text" name="zipcodeInput" pattern="[0-9]{5}" placeholder="Enter ZIP Code">
         </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="shelter">
-                <i class="servicesIcon fas fa-bed" id="shelterIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Shelter
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="food">
-                <i class="servicesIcon fas fa-utensils" id="foodIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Food
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="healthcare">
-                <i class="servicesIcon fas fa-user-md" id="healthcareIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Healthcare
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="govHelp">
-                <i class="servicesIcon fas fa-landmark" id=govIcon></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Government Assistance
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="socialservices">
-                <i class="servicesIcon fas fa-hands-helping" id="socialservicesIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Social Services
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="items">
-                <i class="servicesIcon fas fa-shopping-basket" id="itemsIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Items
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="clothing">
-                <i class="servicesIcon fas fa-tshirt" id="clothingIcon"></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Clothing
-            </div>
-        </div>
-        <div class="navItemContainer">
-            <button class="navButton" id="wifi">
-                <i class="servicesIcon fas fa-wifi" id=wifiIcon></i>
-            </button>
-            <br>
-            <div class="navItemLabel">
-                Internet
-            </div>
-        </div>
-    </div>
-    <br>
-s
-    <div id="searchModal">
-        <input type="text" name="zipcodeInput" pattern="[0-9]{5}" placeholder="Enter ZIP Code">
-    </div>
+
+    </form>
+
 
 </div>
 <br/>

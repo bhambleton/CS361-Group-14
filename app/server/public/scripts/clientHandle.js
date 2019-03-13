@@ -30,7 +30,7 @@ module.exports = function()
     });
 
     //if any POST hits <server root>/client/, the client is making some request for info
-    router.post('/', function(req,res,next)
+    router.post('/results', function(req,res,next)
     {
         //report user access to console
         console.log('Somebody somewhere sent a POST to root/client/');
@@ -38,7 +38,8 @@ module.exports = function()
         //store the user parameters stored in the request body into a GLOBAL variable
         /*have to do this stupid Object.keys thing because for some reason
         the parameters are getting passed to the server in a long string, as the name of the first key*/
-        userParams = JSON.parse(Object.keys(req.body)[0]);
+        //userParams = JSON.parse(Object.keys(req.body)[0]);
+        userParams = req.body;
 
         //log to server console whatever the user requested
         console.log('POST request contained:');
