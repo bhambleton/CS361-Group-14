@@ -1,6 +1,6 @@
 <header class="hidden">
 
-    <input type="button" type="button" name="Login">Login
+    <input type="radio" name="resourceType"  type="button" name="Login">Login
 
     <div id="homeButtonContainer">
         <a href="/"><i class="servicesIcon fas fa-home"></i></a>
@@ -8,12 +8,13 @@
 </header>
 <br><br>
 
-
+<span id="message"></span>
+<br/>
 <div id="homepageContainer">
     <form id="searchForm" action="/client/results" method="POST">
         <div id="navItemContainer">
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Temporary Work" id="tempWork">
+                <input type="radio" name="resourceType" value="Temporary Work" class="navButton" id="tempWork">
                     <i class="servicesIcon fas fa-briefcase" id="workIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -21,7 +22,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Shelter" id="shelter">
+                <input type="radio" name="resourceType" value="Shelter"  class="navButton" id="shelter">
                     <i class="servicesIcon fas fa-bed" id="shelterIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -29,7 +30,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Food" id="food">
+                <input type="radio" name="resourceType" value="Food" class="navButton" id="food">
                     <i class="servicesIcon fas fa-utensils" id="foodIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -37,7 +38,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Healthcare" id="healthcare">
+                <input type="radio" name="resourceType" value="Healthcare" class="navButton" id="healthcare"/>
                     <i class="servicesIcon fas fa-user-md" id="healthcareIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -45,7 +46,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Government Help" id="govHelp">
+                <input type="radio" name="resourceType" value="Government Help"  class="navButton" id="govHelp"/>
                     <i class="servicesIcon fas fa-landmark" id=govIcon></i>
                 <br>
                 <div class="navItemLabel">
@@ -53,7 +54,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Social_Services" id="socialservices">
+                <input type="radio" name="resourceType" value="Social Services" class="navButton" id="socialservices"/>
                     <i class="servicesIcon fas fa-hands-helping" id="socialservicesIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -61,7 +62,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Items" id="items">
+                <input type="radio" name="resourceType" value="Items" class="navButton" id="items"/>
                     <i class="servicesIcon fas fa-shopping-basket" id="itemsIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -69,7 +70,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Clothing" id="clothing">
+                <input type="radio" name="resourceType" value="Clothing" class="navButton" id="clothing"/>
                     <i class="servicesIcon fas fa-tshirt" id="clothingIcon"></i>
                 <br>
                 <div class="navItemLabel">
@@ -77,7 +78,7 @@
                 </div>
             </div>
             <div class="navItemContainer">
-                <input type="button" class="navButton" name="Internet" id="wifi">
+                <input type="radio" name="resourceType" value="Internet" class="navButton" id="wifi"/>
                     <i class="servicesIcon fas fa-wifi" id=wifiIcon></i>
                 <br>
                 <div class="navItemLabel">
@@ -88,7 +89,7 @@
         <br>
 
         <div id="searchModal">
-            <input type="text" name="zipcodeInput" pattern="[0-9]{5}" placeholder="Enter ZIP Code">
+            <input type="text" name="zipcodeInput" id="zipcodeInput" pattern="[0-9]{5}" placeholder="Enter ZIP Code"/>
         </div>
 
     </form>

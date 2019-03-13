@@ -24,8 +24,8 @@ for (var i = 0; i < buttons.length; i++)
     //set cur button
     var b = buttons[i];
 
-    //ignore any non-button inputs AND ignore the login button
-    if (b.getAttribute("type") !== "button" || b.getAttribute("name") === "Login")
+    //ignore any non-button inputs
+    if (b.getAttribute("type") !== "radio")
     {
         //do nothing
 
@@ -37,11 +37,34 @@ for (var i = 0; i < buttons.length; i++)
         //debug
         //console.log("adding event listener to button " + b + " which has id " + b.id);
 
-        b.addEventListener('click', function ()
+        b.addEventListener('click', function (selection)
         {
-            console.log("submitting form!");
+            return function()
+            {
+                var zip = document.getElementById("zipcodeInput").value;
 
-            document.getElementById("searchForm").submit();
-        });
+                //if zip hasn't been entered then yell at them to enter one
+                if (!validateZipCode(zip))
+                //if (!zip) //leaving this here in case we don't want to use the method Casey provided
+                {
+                    alert("Please enter a five-digit zipcode, and then select a service!");
+                }
+                else if (zip === "12345") {
+                    alert("Could not find that service locally, here is a social worker's contact information to assist you\n\nName: Jane McSocialWorker\nPhone Number: (123) 456-7890\nEmail: jmcsocial@localcompany.com\nCompany: mySocialWorkerEmployer")
+                    console.log("Couldn't find any resources, here is a nearby social worker's contact information!");
+                }
+                else //submit
+                {
+                    console.log("submitting form!");
+
+                    //ask user to wait (for scraper) if tempwork submitted
+                    if (selection === "Temporary Work") {
+                        document.getElementById("message").textContent = "Searching local listings..."
+                    }
+
+                    document.getElementById("searchForm").submit();
+                }
+            };
+        }(b.value));
     }
 }

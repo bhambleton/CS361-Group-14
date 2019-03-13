@@ -75,10 +75,16 @@ ul.navList li {
 input.navButton
 {
   position: absolute;
-  height: 50px;
-  width: 60px;
+  margin: -5px;
+  height: 60px;
+  width: 70px;
   cursor: pointer;
   background: transparent;
+  opacity: 0;
+
+  /*make radio button square in shape. source: https://codepen.io/DocMcBrown/pen/VjbpGQ */
+  border: 1px solid #fff;
+  -webkit-appearance: none;
 }
 
 /*END NAV ITEMS */
@@ -103,6 +109,7 @@ input.navButton
   border-radius: 50%;
   background-color: darkgrey;
   padding: 10px;
+  cursor: pointer;
 }
 
 .fas.fa-arrow-left {

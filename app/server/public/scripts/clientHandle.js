@@ -45,12 +45,12 @@ module.exports = function()
         console.log('POST request contained:');
         console.log(userParams);
 
-        //define GLOBGAL data object to be filled by scraper/DB query
+        //define GLOBAL data object to be filled by scraper/DB query
         results = [];
         fields = [];
 
         //if user chose temp work, then activate scraper. else, query DB
-        if (userParams.id === 'tempWork')
+        if (userParams.resourceType === 'Temporary Work')
         {
             //debug
             console.log("Activating web scraper");
@@ -76,33 +76,54 @@ module.exports = function()
             var jobsRaw = fs.readFileSync("../jobList.csv", 'utf-8');   //read in all text raw
             var jobsByLine = jobsRaw.split("\r\r\n");                   //split it by the line delimiter
 
-            //get rid of the first line that just has headers, and get rid of last line that is blank
-            jobsByLine.shift();
+            //remove the first header element from the job list and store it
+            var headers = jobsByLine.shift().split("|");
+
+            //get rid of last line that is blank
             jobsByLine.pop();
 
             //debug
             //console.log(jobsRaw);
             //console.log(jobsByLine);
 
-            //now for every line element in the newly created array, delimit further by the | delimiter
+            //now for every line element in the newly created array, delimit further by the | delimiter and assign to a key/value pair
+            var results = [];
             for (var curLine in jobsByLine)
             {
                 console.log("curLine is: " + jobsByLine[curLine]);
+
+                //delimit
                 jobsByLine[curLine] = jobsByLine[curLine].split("|");
+
+                //assign to key/val pair based on cur val relative to headers
+                results[curLine] = {};
+
+                //debug
+                console.log("headers.length is " + headers.length);
+
+                for (var i=0; i < headers.length; i++)
+                {
+                    //debug
+                    console.log("setting header " + headers[i] + " to value " + jobsByLine[curLine][i]);
+
+                    results[curLine][headers[i]] = jobsByLine[curLine][i];
+                }
             }
 
             //debug
             //console.log(jobsByLine);
+            console.log(headers);
+            console.log(results);
 
             //render the results page and pass the info that handlebars will use to populate its {{}} brackets
             var context =
                 {
-                    "jobVomit": jobsByLine,
-                    "type": userParams.id,
-                    "zip": userParams.zip
+                    results: results,
+                    "type": userParams.resourceType,
+                    "zip": userParams.zipcodeInput
                 };
 
-            console.log(context);
+            //console.log(context);
 
             //render the results page and pass the info that handlebars will use to populate its {{}} brackets
             res.render('client_search_results', context);
@@ -138,7 +159,7 @@ module.exports = function()
                         "zip": userParams.zip
                     };
 
-                console.log(context);
+                //console.log(context);
 
                 //render the results page and pass the info that handlebars will use to populate its {{}} brackets
                 res.render('client_search_results', context);
