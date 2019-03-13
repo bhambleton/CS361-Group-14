@@ -1,10 +1,8 @@
-<header class="hidden">
-
-    <input type="radio" name="resourceType"  type="button" name="Login">Login
-
+<header>
     <div id="homeButtonContainer">
         <a href="/"><i class="servicesIcon fas fa-home"></i></a>
     </div>
+    <button type="button" id="loginButton" onclick="document.getElementById('loginBackdrop').classList.remove('hidden'); document.getElementById('loginModalContainer').classList.remove('hidden');">Login</button>
 </header>
 <br><br>
 
@@ -96,6 +94,7 @@
 
 
 </div>
+
 <br/>
 for now, 4 possibilities:<br/>
 1: zip is not 5 digits in length. user is asked to enter 5 digits.<br/>
@@ -105,5 +104,23 @@ for now, 4 possibilities:<br/>
 <br/>
 <br/>
 <div id="resultsContainer"></div>
+
+<div id="loginBackdrop" class="hidden"></div>
+<div id="loginModalContainer" class="hidden">
+    <div id="loginModalContents">
+        <div id="inputContainer">
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+        </div>
+        <div id="loginModalButtonsContainer">
+            <button type="submit" class="loginButton"><i class="fas fa-check"></i></button>
+            <button type="button" class="loginButton" onclick="document.getElementById('loginBackdrop').classList.add('hidden'); document.getElementById('loginModalContainer').classList.add('hidden');">
+                <i class="fas fa-times"></i></button>
+        </div>
+    </div>
+</div>
+</div>
 
 <script src='/scripts/client.js'></script>

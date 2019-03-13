@@ -3,3 +3,6 @@
 
 #Webstorm IDE
 /.idea
+
+#temp file
+app/jobList.csv
