@@ -59,7 +59,6 @@ div#navItemContainer {
   width: 400px;
   border-radius: 10px;
   background-color: lightgrey;
-
 }
 
 .servicesIcon{
@@ -95,6 +94,22 @@ ul.navList li {
   border: none;
   background: none;
 }
+
+input.navButton
+{
+  position: absolute;
+  margin: -5px;
+  height: 60px;
+  width: 70px;
+  cursor: pointer;
+  background: transparent;
+  opacity: 0;
+
+  /*make radio button square in shape. source: https://codepen.io/DocMcBrown/pen/VjbpGQ */
+  border: 1px solid #fff;
+  -webkit-appearance: none;
+}
+
 /*END NAV ITEMS */
 
 /*ZIPCODE INPUT MODAL */
@@ -117,6 +132,7 @@ ul.navList li {
   border-radius: 50%;
   background-color: darkgrey;
   padding: 10px;
+  cursor: pointer;
 }
 
 .fas.fa-arrow-left {
