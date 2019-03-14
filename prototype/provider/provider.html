@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="stylePr.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700" rel="stylesheet">
+</head>
+  <body>
+	
+      <header class="hidden">
+
+            <button type="button" name="Login">Login</button>
+
+          <div id="homeButtonContainer">
+            <a href="/"><i class="servicesIcon fas fa-home"></i></a>
+          </div>
+      </header>
+      <br><br>
+
+    <div class="" id="homepageContainer">
+
+      <div id="navItemContainer">
+          <div class="navItemContainer">
+            <button class="navButton" id="logInButton" title="Sign In">
+              <i class="providerIcon fas fa-file-signature" id="logInIcon"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="blank2Button">
+              <i class="providerIcon fas fa-chess-board" id="blank2Icon"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="editButton">
+              <i class="providerIcon fas fa-user-edit" id="editIcon" title="Edit a Service"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="addButton">
+              <i class="providerIcon fas fa-plus" id="addIcon" title="Add a Service" ></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="claimButton">
+              <i class="providerIcon fas fa-hand-paper" id="claimIcon" title="Claim Existing Service"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="deleteButton">
+              <i class="providerIcon fas fa-times" id="deleteIcon" title="Delete a Service"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="registerButton">
+              <i class="providerIcon fas fa-address-card" id="registerIcon" title="Register"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="blank8Button">
+              <i class="providerIcon fas fa-chess-board" id="blank8Icon"></i>
+            </button>
+          </div>
+          <div class="navItemContainer">
+            <button class="navButton" id="logoutButton">
+              <i class="providerIcon fas fa-backspace" id="logoutIcon" title="Log Out"></i>
+            </button>
+          </div>
+      </div>
+      <br>
+      <div class="hidden">
+      <div id="searchModal">
+        <input type="number" name="zipcodeInput" placeholder="Enter ZIP Code">
+      </div></div>
+
+    </div>
+
+    <div id="providerResultsContainer">
+      <div id="resultsContent">
+        <h3><p><span id="providerHeader3">Provider Utilities</h3>
+                
+			<div id="registrationStuff">              
+				<label>Name: <input type="text" name="city" id="nameLine">  </label> <br>          
+				<label>Organization: <input type="text" name="city" id="nameLine">  </label> <br>           
+				<label>Phone: <input type="tel" name="phoneNum" id="phoneLine">  </label> <br>           
+				<label>Email: <input type="email" name="emailAddress" id="emailLine">  </label>	 <br> 
+				<div class="navItemContainer">
+					<button class="navButton" id="regSubmitButton">
+						<i class="providerIcon fas fa-hand-point-right" id="regSubmitIcon" title="Submit Registration"></i>
+					</button>
+				</div>				
+		    </div>
+		  
+      </div>
+    </div>
+
+
+    <div class="" id="backButtonContainer">
+        <a href=""><i class="fas fa-arrow-left" title="Back"></i></a>
+    </div>
+	
+	<script type="text/javascript" src="provider.js"></script>
+	
+  </body>
+</html>

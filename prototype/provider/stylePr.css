@@ -1,0 +1,153 @@
+.hidden {
+  display: none;
+}
+body {
+}
+/* HEADER ITEMS */
+header {
+  width: 400px;
+  height: 60px;
+  margin: auto;
+  display: flex;
+  border: 5px solid black;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+div.homeButtonContainer{
+
+}
+div.loginButtonContainer{
+
+}
+
+.fas.fa-home {
+  font-size: 40px;
+  color: grey;
+}
+/* END HEADER ITEMS */
+
+/* NAV ITEMS */
+div#navItemContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+  width: 400px;
+  border-radius: 10px;
+  background-color: lightgrey;
+
+}
+
+.servicesIcon{
+  font-size: 50px;
+  color: black;
+}
+.providerIcon{
+  font-size: 50px;
+  color: black;
+}
+
+div.navItemContainer {
+  padding: 25px;
+}
+
+
+ul.navList li {
+  display: inline-flex;
+  list-style-type: none;
+
+}
+
+.servicesIcon:hover {
+  color: grey;
+}
+
+.navButton {
+  border: none;
+  background: none;
+}
+/*END NAV ITEMS */
+
+/*ZIPCODE INPUT MODAL */
+#searchModal {
+  width: 380px;
+  border-radius: 10px;
+  background-color: lightgrey;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+/*END ZIP INPUT */
+
+/* BACK BUTTON */
+#backButtonContainer {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  border-radius: 50%;
+  background-color: darkgrey;
+  padding: 10px;
+}
+
+.fas.fa-arrow-left {
+  font-size: 40px;
+  color: white;
+}
+/* END BACK BUTTON */
+
+/* RESULTS PAGE STUFF */
+div#servicesResultsContainer {
+  display: flex;
+  justify-content: center;
+}
+div#providerResultsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+div#resultsContent {
+  background-color: lightgrey;
+  padding: 5px;
+  border-radius: 10px;
+  width: 390px;
+}
+
+div#resultsContent > h3 {
+  font-family: 'Bitter', serif;
+  font-weight: 700;
+  font-size: 17px;
+  margin: 7px;
+  padding: 5px;
+}
+
+ol#resultsList{
+  font-family: 'Bitter', serif;
+}
+
+li.resultsItem {
+  margin: 5px;
+  margin-bottom: 15px;
+}
+div.servicesInfoContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+div.providerInfoContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+div.servicesInfoContainer p{
+  margin: 2px;
+}
+/* END RESULTS PAGE STUFF */
+
+/* LINKS */
+a, a:active, a:visited {
+  text-decoration: none;
+}
+/* END LINKS */
