@@ -218,6 +218,9 @@ module.exports = function()
                     //no rows? no username
                     if (rows.length !== 1) {
                         //no matching username. you lose, good day sir.
+                        var whoDis;
+                        console.log("Huh? I don't know who this is. Try again");
+			res.render('no_user', whoDis);
                     }
                     //check password
                     else if (password === rows[0].password) {
@@ -232,7 +235,9 @@ module.exports = function()
                     }
                     else //wrong password
                     {
-                        //do something, eventually
+                        var whoDis;
+			alert("Huh? I don't know who this is. Try again");
+			res.render('no_user', whoDis);
                     }
                 })
             }
