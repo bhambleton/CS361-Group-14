@@ -107,6 +107,33 @@ module.exports = function()
 
     });
 
+    //show raw sw_third_party_store_sim user table
+    router.get('/db/sw_third_party_store_sim_raw', function(req,res,next)
+    {
+        var interfaceMysql = req.app.get('mysql');
+
+        //declare response object
+        var context = {};
+
+        //send the query
+        interfaceMysql.pool.query('SELECT * FROM SW_THIRD_PARTY_STORE_SIM', function(err, rows, fields)
+        {
+            if(err)
+            {
+                next(err);
+                return;
+            }
+
+            //define the fields in the template page to be rendered
+            context.results = rows;
+            context.fields = fields;
+
+            //render the page
+            res.render('dev_table_raw', context);
+        });
+
+    });
+
     //playround w/ scraper output
     router.get('/temp_work_scraper', function(req,res,next)
     {

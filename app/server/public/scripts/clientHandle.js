@@ -187,10 +187,14 @@ module.exports = function()
         //define GLOBAL data object to be filled by registrant results
         username = userParams.username;
         password = userParams.password;
+        swid = userParams.swid;
         success = false;
         actionType = userParams.loginNewOrExisting;
 
-        //check if logging in/registering. R/W user registrant contained here
+        //compare against DB
+        var interfaceMysql = req.app.get('mysql');
+
+        //check if logging in/registering.
         if (userParams.loginNewOrExisting && userParams.loginNewOrExisting !== 'undefined')
         {
             //report
@@ -201,12 +205,11 @@ module.exports = function()
                 //report
                 console.log("Checking DB for existing user");
 
-                //compare against DB
-                var interfaceMysql = req.app.get('mysql');
-
                 //send the query
-                interfaceMysql.pool.query('SELECT username, password FROM RW_USER WHERE username = \'' + username + '\'', function (err, rows, fields) {
-                    if (err) {
+                interfaceMysql.pool.query('SELECT username, password FROM RW_USER WHERE username = \'' + username + '\'', function (err, rows, fields)
+                {
+                    if (err)
+                    {
                         next(err);
                         return;
                     }
@@ -216,36 +219,163 @@ module.exports = function()
 
                     //check returned credentials
                     //no rows? no username
-                    if (rows.length !== 1) {
+                    if (rows.length !== 1)
+                    {
                         //no matching username. you lose, good day sir.
-                        var whoDis;
-                        console.log("Huh? I don't know who this is. Try again");
-			res.render('no_user', whoDis);
+                        var context = {};
+                            context.whoDis = "Couldn't find that username/password combo! Try again";
+
+                        console.log("Failure. Message to user: " + context.whoDis);
+			            res.render('no_user', context);
                     }
                     //check password
-                    else if (password === rows[0].password) {
+                    else if (password === rows[0].password)
+                    {
                         //success, render login
                         //define the fields in the template page to be rendered
                         var context = {};
                         context.username = rows[0].username;
                         context.success = true;
+                        context.newUser = false;
 
                         //render the page
                         res.render('client_logged_in_home', context);
                     }
                     else //wrong password
                     {
-                        var whoDis;
-			alert("Huh? I don't know who this is. Try again");
-			res.render('no_user', whoDis);
+                        //no matching pass. same msg as when no username found at all
+                        context = {};
+                        context.whoDis = "Couldn't find that username/password combo! Try again";
+
+                        console.log("Failure. Message to user: " + context.whoDis);
+                        res.render('no_user', context);
                     }
                 })
             }
-                else //add user to DB
-                {
+            else //add user to DB. R/W user registrant contained here
+            {
+                //report
+                console.log("Adding user to DB");
+
+                //if user provided a SWID, then validate creds
+                if (swid && swid !== 'undefined') {
                     //report
-                    console.log("Adding user to DB");
+                    console.log("Checking 3rd-party SWID data to validate SWID #" + swid);
+
+                    //send query
+                    interfaceMysql.pool.query('SELECT sw_3rd_party_id FROM SW_THIRD_PARTY_STORE_SIM WHERE sw_3rd_party_id = \'' + swid + '\'', function (err, rows, fields)
+                    {
+                        if (err)
+                        {
+                            next(err);
+                            return;
+                        }
+
+                        console.log('returned rows: ');
+                        console.log(rows);
+
+                        //check returned credentials
+                        //no rows? no SWID
+                        if (rows.length !== 1)
+                        {
+                            var context = {};
+                            context.whoDis = "Could not authenticate SW ID #" + swid;
+
+                            console.log("Failure. Message to user: " + context.whoDis);
+                            
+                            res.render('no_user', context);
+                        }
+                    });
                 }
+
+                //if here, then either user did not provide a SWID or the SWID was validated. proceed with registration.
+                //need to check if username OR SWID already taken
+
+                //report
+                console.log('Checking RW_USER to verify that the username and SWID are available');
+
+                //modularize where clause for readability
+                var whereClause = '((username = \'' + username + '\') OR (sw_id = \'' + swid + '\'))';
+
+                //send query
+                interfaceMysql.pool.query('SELECT username, sw_id FROM RW_USER WHERE ' + whereClause, function (err, rows, fields)
+                {
+                    if (err)
+                    {
+                        next(err);
+                        return;
+                    }
+
+                    console.log('returned rows: ');
+                    console.log(rows);
+
+                    //check if any username/swid already in use.
+                    //no rows? good to register!
+                    if (rows.length !== 0)
+                    {
+                        //what was taken - username, swid, or both? append to var inUse
+                        var context = {};
+                            context.whoDis = '';
+
+                        /* this kinda works but assumes only one row returned. For now, just a simple error message
+                        //username?
+                        if (rows[0].username && rows[0].username !== 'undefined' && rows[0].username === username)
+                        {
+                            context.whoDis = context.whoDis.concat('Username \'' + username + '\' already in use.\n');
+                        }
+
+                        if (rows[0].sw_id && rows[0].sw_id !== 'undefined' && rows[0].sw_id !== '')
+                        {
+                            context.whoDis = context.whoDis.concat('SW ID \'' + swid + '\' already in use.');
+                        }
+                        */
+                        context.whoDis = 'Username or SW ID already in use.';
+
+                        console.log("Failure. Message to user: " + context.whoDis);
+                        res.render('no_user', context);
+                    }
+                    else //if here, good to register
+                    {
+                        //report
+                        console.log('username and SWID not in use, proceeding with registration');
+
+                        //format sw_id insert text. if provided, then keep it. else set it to 'NULL'
+                        if (!swid || swid === 'undefined' || swid <= 0)
+                        {
+                            swid = 'NULL';
+                        }
+
+                        //send insert
+                        interfaceMysql.pool.query('INSERT INTO RW_USER (username, password, sw_id) VALUES (\'' + username + '\', \'' + password + '\', ' + swid + ')', function (err, data)
+                        {
+                            if (err)
+                            {
+                                next(err);
+                                return;
+                            }
+
+                            console.log('returned rows: ');
+                            console.log(data);
+
+                            //verify registration success and redirect user
+                            if (data.serverStatus === 2)
+                            {
+                                //success, render login
+                                //define the fields in the template page to be rendered
+                                var context = {};
+                                context.username = username;
+                                context.success = true;
+                                context.newUser = true;
+
+                                //render the page
+                                res.render('client_logged_in_home', context);
+                            }
+                        });
+                    }
+                });
+
+
+            }
         }
     });
 
