@@ -42,13 +42,9 @@ module.exports = function()
             context.results = rows;
             context.fields = fields;
 
-            //define the address to show
-            context.route_to = '/db/service_raw';
-
             //render the page
             res.render('dev_table_raw', context);
         });
-
     });
 
     //playround for rendering the result screen for a service search
@@ -78,11 +74,35 @@ module.exports = function()
             context.results = rows;
             context.fields = fields;
 
-            //define the address to show
-            context.route_to = '/db/service_result';
-
             //render the page
             res.render('client_search_results', context);
+        });
+
+    });
+
+    //show raw r/w user table
+    router.get('/db/rw_user_raw', function(req,res,next)
+    {
+        var interfaceMysql = req.app.get('mysql');
+
+        //declare response object
+        var context = {};
+
+        //send the query
+        interfaceMysql.pool.query('SELECT * FROM RW_USER', function(err, rows, fields)
+        {
+            if(err)
+            {
+                next(err);
+                return;
+            }
+
+            //define the fields in the template page to be rendered
+            context.results = rows;
+            context.fields = fields;
+
+            //render the page
+            res.render('dev_table_raw', context);
         });
 
     });

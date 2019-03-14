@@ -2,7 +2,7 @@
     <div id="homeButtonContainer">
         <a href="/client"><i class="servicesIcon fas fa-home"></i></a>
     </div>
-    <button type="button" id="loginButton" onclick="document.getElementById('loginBackdrop').classList.remove('hidden'); document.getElementById('loginModalContainer').classList.remove('hidden');">Login</button>
+    Welcome, {{username}}. Please choose an option.
 </header>
 <br><br>
 
@@ -101,27 +101,5 @@ for now, 4 possibilities:<br/>
 <br/>
 <br/>
 <div id="resultsContainer"></div>
-
-<div id="loginBackdrop" class="hidden"></div>
-<div id="loginModalContainer" class="hidden">
-    <div id="loginModalContents">
-        <form action="/client" method="POST">
-                <div id="inputContainer">
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="Enter Username" name="username" required>
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Enter Password" name="password" required>
-                    <input type="radio" name="loginNewOrExisting" value="Existing User" id="Existing User" checked="checked"/><label for="Existing User">Existing User</label>
-                    <br/>
-                    <input type="radio" name="loginNewOrExisting" value="New User" id="New User"/><label for="New User">New User</label>
-            </div>
-            <div id="loginModalButtonsContainer">
-                <div><i class="fas fa-check"></i><input type="submit" class="loginButton" value=""/></div>
-                <div><i class="fas fa-times"></i><input type="button" class="loginButton" onclick="document.getElementById('loginBackdrop').classList.add('hidden'); document.getElementById('loginModalContainer').classList.add('hidden');"></div>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
 
 <script src='/scripts/client.js'></script>

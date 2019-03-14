@@ -25,7 +25,7 @@ for (var i = 0; i < buttons.length; i++)
     var b = buttons[i];
 
     //ignore any non-button inputs
-    if (b.getAttribute("type") !== "radio")
+    if (b.getAttribute("type") !== "radio" || b.getAttribute("name") !== "resourceType")
     {
         //do nothing
 

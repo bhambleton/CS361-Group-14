@@ -1,3 +1,10 @@
+<header>
+    <div id="homeButtonContainer">
+        <a href="/client"><i class="servicesIcon fas fa-home"></i></a>
+    </div>
+</header>
+<br><br>
+
 {{#if serverMessage}}
     <h1>SERVER MESSAGE</h1>
     <h2>{{serverMessage}}</h2>
@@ -5,7 +12,6 @@
 
 <!--Show the current selection, if any-->
 {{#if results}}
-
     <div id="servicesResultsContainer">
         <div id="resultsContent">
             <h3>Results for: {{type}} near ZIP code {{zip}}:</h3>

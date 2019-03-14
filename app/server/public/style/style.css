@@ -34,6 +34,7 @@ button#loginButton{
   font-size: 28px;
   color: white;
   letter-spacing: 2px;
+  cursor: pointer;
 }
 
 button#loginButton:hover{
@@ -102,7 +103,7 @@ input.navButton
   height: 60px;
   width: 70px;
   cursor: pointer;
-  background: transparent;
+  background: none;
   opacity: 0;
 
   /*make radio button square in shape. source: https://codepen.io/DocMcBrown/pen/VjbpGQ */
@@ -184,7 +185,7 @@ div.servicesInfoContainer p{
 /* LOGIN ITEMS */
 div#loginModalContents{
   width: 400px;
-  height: 200px;
+  height: 220px;
   padding: 10px;
   margin: 150px auto;
   background-color: white;
@@ -195,12 +196,17 @@ div#inputContainer{
   padding: 10px;
 }
 
-button.loginButton{
+input.loginButton{
+  position:absolute;
+  margin-left: -15px;
+  width: 15px;
+  height: 15px;
   border: none;
   background: none;
+  opacity: 0;
   font-size: 25px;
+  cursor: pointer;
 }
-
 
 div#loginModalButtonsContainer{
   padding: 5px;

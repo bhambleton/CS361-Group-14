@@ -33,22 +33,20 @@ module.exports = function()
     router.post('/results', function(req,res,next)
     {
         //report user access to console
-        console.log('Somebody somewhere sent a POST to root/client/');
+        console.log('Somebody somewhere sent a POST to root/client/results/');
 
         //store the user parameters stored in the request body into a GLOBAL variable
-        /*have to do this stupid Object.keys thing because for some reason
-        the parameters are getting passed to the server in a long string, as the name of the first key*/
-        //userParams = JSON.parse(Object.keys(req.body)[0]);
         userParams = req.body;
 
         //log to server console whatever the user requested
         console.log('POST request contained:');
         console.log(userParams);
 
-        //define GLOBAL data object to be filled by scraper/DB query
+        //define GLOBAL data object to be filled by scraper/DB query (if needed)
         results = [];
         fields = [];
 
+        //begin handling user's request
         //if user chose temp work, then activate scraper. else, query DB
         if (userParams.resourceType === 'Temporary Work')
         {
@@ -90,7 +88,8 @@ module.exports = function()
             var results = [];
             for (var curLine in jobsByLine)
             {
-                console.log("curLine is: " + jobsByLine[curLine]);
+                //debug
+                //console.log("curLine is: " + jobsByLine[curLine]);
 
                 //delimit
                 jobsByLine[curLine] = jobsByLine[curLine].split("|");
@@ -98,14 +97,19 @@ module.exports = function()
                 //assign to key/val pair based on cur val relative to headers
                 results[curLine] = {};
 
-                //debug
-                console.log("headers.length is " + headers.length);
+                //set key "id" = value (curLine) (+1 for 1-indexing)
+                results[curLine].id = (curLine+1);
 
+                //debug
+                //console.log("headers.length is " + headers.length);
+
+                //create key/value pairs for each key defined in the jobList.csv header
                 for (var i=0; i < headers.length; i++)
                 {
                     //debug
-                    console.log("setting header " + headers[i] + " to value " + jobsByLine[curLine][i]);
+                    //console.log("setting header " + headers[i] + " to value " + jobsByLine[curLine][i]);
 
+                    //set key = value
                     results[curLine][headers[i]] = jobsByLine[curLine][i];
                 }
             }
@@ -128,7 +132,7 @@ module.exports = function()
             //render the results page and pass the info that handlebars will use to populate its {{}} brackets
             res.render('client_search_results', context);
         }
-        else
+        else ///must be a DB query
         {
             //debug
             console.log("Sending query to DB");
@@ -164,6 +168,79 @@ module.exports = function()
                 //render the results page and pass the info that handlebars will use to populate its {{}} brackets
                 res.render('client_search_results', context);
             });
+        }
+    });
+
+    //registrant and login handler
+    router.post('/', function(req, res, next)
+    {
+        //report user access to console
+        console.log('Somebody somewhere sent a POST to root/client/');
+
+        //store the user parameters stored in the request body into a GLOBAL variable
+        userParams = req.body;
+
+        //log to server console whatever the user requested
+        console.log('POST request contained:');
+        console.log(userParams);
+
+        //define GLOBAL data object to be filled by registrant results
+        username = userParams.username;
+        password = userParams.password;
+        success = false;
+        actionType = userParams.loginNewOrExisting;
+
+        //check if logging in/registering. R/W user registrant contained here
+        if (userParams.loginNewOrExisting && userParams.loginNewOrExisting !== 'undefined')
+        {
+            //report
+            console.log("Detecting " + userParams.loginNewOrExisting + " " + userParams.username + " logging in with password REDACTED");
+
+            //check if new or existing and handle accordingly
+            if (userParams.loginNewOrExisting === "Existing User") {
+                //report
+                console.log("Checking DB for existing user");
+
+                //compare against DB
+                var interfaceMysql = req.app.get('mysql');
+
+                //send the query
+                interfaceMysql.pool.query('SELECT username, password FROM RW_USER WHERE username = \'' + username + '\'', function (err, rows, fields) {
+                    if (err) {
+                        next(err);
+                        return;
+                    }
+
+                    console.log('returned rows: ');
+                    console.log(rows);
+
+                    //check returned credentials
+                    //no rows? no username
+                    if (rows.length !== 1) {
+                        //no matching username. you lose, good day sir.
+                    }
+                    //check password
+                    else if (password === rows[0].password) {
+                        //success, render login
+                        //define the fields in the template page to be rendered
+                        var context = {};
+                        context.username = rows[0].username;
+                        context.success = true;
+
+                        //render the page
+                        res.render('client_logged_in_home', context);
+                    }
+                    else //wrong password
+                    {
+                        //do something, eventually
+                    }
+                })
+            }
+                else //add user to DB
+                {
+                    //report
+                    console.log("Adding user to DB");
+                }
         }
     });
 
