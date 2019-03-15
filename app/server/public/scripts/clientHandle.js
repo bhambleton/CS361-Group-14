@@ -397,20 +397,24 @@ module.exports = function()
         //process update
         //define strings
 
-        /*
+       /* 
         //send query
         var interfaceMysql = req.app.get('mysql');
-        interfaceMysql.pool.query('', function (err, rows)
+	var sql = "UPDATE SERVICE SET phone=? WHERE id=?";
+	var inserts = [req.body.phone];
+        sql = interfaceMysql.pool.query(sql, inserts, function (err, rows)
         {
             if (err)
             {
                 next(err);
                 return;
             }
+	    else
+	    {
 
             console.log('returned rows: ');
             console.log(rows);
-        */
+            } */
         res.send("actual update/edit capability coming soon...");
         //})
     });
