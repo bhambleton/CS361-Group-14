@@ -123,7 +123,10 @@ module.exports = function()
             var context =
                 {
                     results: results,
+                    "username": userParams.username,
+                    "swid": userParams.swid,
                     "type": userParams.resourceType,
+                    "isNotWork": false,
                     "zip": userParams.zipcodeInput
                 };
 
@@ -132,13 +135,12 @@ module.exports = function()
             //render the results page and pass the info that handlebars will use to populate its {{}} brackets
             res.render('client_search_results', context);
         }
-        else ///must be a DB query
+        else ///must be a DB SELECT query
         {
             //debug
             console.log("Sending query to DB");
 
             //here, later, customize the query to send to the DB. for now, just grab everything from SERVICE
-
             //get stuff from the database
             var mysql = req.app.get('mysql');
 
@@ -159,7 +161,10 @@ module.exports = function()
                     {
                         "results": results,
                         "fields": fields,
+                        "username": userParams.username,
+                        "swid": userParams.swid,
                         "type": userParams.id,
+                        "isNotWork": true,
                         "zip": userParams.zip
                     };
 
@@ -355,7 +360,7 @@ module.exports = function()
                                 return;
                             }
 
-                            console.log('returned rows: ');
+                            console.log('returned data: ');
                             console.log(data);
 
                             //verify registration success and redirect user
@@ -381,8 +386,8 @@ module.exports = function()
         }
     });
 
-    //for editing or deleting entries in the service DB
-    router.post('/update_or_delete', function(req, res, next)
+    //for adding, editing, or deleting entries in the service DB
+    router.post('/result_add_update_delete_claim', function(req, res, next)
     {
         //report user access to console
         console.log('Somebody somewhere sent a POST to root/client/');
@@ -390,33 +395,192 @@ module.exports = function()
         //store the user parameters stored in the request body into a GLOBAL variable
         userParams = req.body;
 
+        /* may be interesting for reference later.
+        //escape all parms
+        for (var p in userParams)
+        {
+            userParams[p] = encodeURI(userParams[p]);
+        }
+        */
+
         //log to server console whatever the user requested
         console.log('POST request contained:');
         console.log(userParams);
 
-        //process update
-        //define strings
-
-       /* 
-        //send query
+        //define sql module and placeholder string
         var interfaceMysql = req.app.get('mysql');
-	var sql = "UPDATE SERVICE SET phone=? WHERE id=?";
-	var inserts = [req.body.phone];
-        sql = interfaceMysql.pool.query(sql, inserts, function (err, rows)
-        {
-            if (err)
-            {
-                next(err);
-                return;
-            }
-	    else
-	    {
+        var sql = ';';
 
-            console.log('returned rows: ');
-            console.log(rows);
-            } */
-        res.send("actual update/edit capability coming soon...");
-        //})
+        //determine user action and act accordingly
+        //is user adding a new record?
+        if (userParams.action && userParams.action !== "undefined" && userParams.action === "add")
+        {
+            //report
+            console.log("Detected service record add request");
+
+            //process add
+
+            //define string
+            sql = 'INSERT INTO SERVICE (name, type, address_street, address_city, address_state, address_zip, email, phone, notes) '
+                + 'VALUES (\'' + userParams.name + '\', \'' + userParams.type + '\', \'' + userParams.address + '\', \''
+                + userParams.city +'\', \'' + userParams.state + '\', \'' + userParams.zip + '\', \''
+                + userParams.email + '\', \'' + userParams.phone + '\', \'' + userParams.notes + '\')'
+            ;
+
+            console.log("sql string:\n" + sql);
+
+            //send query
+            interfaceMysql.pool.query(sql, function (err, data)
+            {
+                if (err)
+                {
+                    next(err);
+                    return;
+                }
+
+                console.log('returned data: ');
+                console.log(data);
+
+                //prep object for view render
+                var context = {};
+                context.message = data.message;
+                context.insertId = data.insertId;
+
+                res.render("client_result_add_update_delete_claim", context);
+            })
+        }
+        //is user updating a record
+        else if (userParams.action && userParams.action !== "undefined" && userParams.action === "edit")
+        {
+            //report
+            console.log("Detected service record update request");
+
+            //process update
+            //define strings
+            sql = "UPDATE SERVICE SET phone=\'" + userParams.phone + "\' WHERE id=" + userParams.id;
+
+            //send query
+            interfaceMysql.pool.query(sql, function (err, data)
+            {
+                if (err)
+                {
+                    next(err);
+                    return;
+                }
+
+                console.log('returned data: ');
+                console.log(data);
+
+                //prep object for view render
+                var context = {};
+                context.message = data.message;
+
+                res.render("client_result_add_update_delete_claim", context);
+            })
+        }
+        //is user deleting a record
+        else if (userParams.action && userParams.action !== "undefined" && userParams.action === "delete")
+        {
+            //report
+            console.log("Detected service record delete request");
+
+            //process delte
+            //define strings
+            sql = 'DELETE FROM SERVICE WHERE id=' + userParams.id;
+
+            //send query
+            interfaceMysql.pool.query(sql, function (err, data)
+            {
+                if (err)
+                {
+                    next(err);
+                    return;
+                }
+
+                console.log('returned data: ');
+                console.log(data);
+
+                //prep object for view render
+                var context = {};
+                context.message = data.message;
+                context.affectedRows = data.affectedRows;
+                context.isDelete = true;
+
+                res.render("client_result_add_update_delete_claim", context);
+            })
+        }
+        //is user claiming a record
+        else if (userParams.action && userParams.action !== "undefined" && userParams.action === "claim")
+        {
+            //report
+            console.log("Detected service record claim request");
+
+            //make sure it's  not already claimed
+            //send query
+            interfaceMysql.pool.query('SELECT id FROM SERVICE WHERE id=' + userParams.id, function (err, data)
+            {
+                if (err)
+                {
+                    next(err);
+                    return;
+                }
+
+                console.log('returned data: ');
+                console.log(data);
+
+                //check if any username/swid already in use.
+                //no rows? good to register!
+                if (data.length === 0)
+                {
+                    //process claim
+                    //define strings
+                    sql = 'UPDATE SERVICE SET CLAIM_ID_NUMBER=(SELECT id_number FROM RW_USER WHERE username=\'' + username + '\')'
+                        + 'WHERE id=' + userParams.id;
+
+                    //send query
+                    interfaceMysql.pool.query(sql, function (err, data)
+                    {
+                        if (err)
+                        {
+                            next(err);
+                            return;
+                        }
+
+                        console.log('returned data: ');
+                        console.log(data);
+
+                        //prep object for view render
+                        var context = {};
+                        context.message = data.message;
+                        context.isClaim = true;
+
+                        res.render("client_result_add_update_delete_claim", context);
+                    })
+                }
+                else //record was already claimed
+                {
+                    var context = {};
+                    context.error = "Unable to claim; record already claimed";
+
+                    console.log("Failure. Message to user: " + context.error);
+
+                    res.render("client_result_add_update_delete_claim", context);
+                }
+            })
+        }
+    });
+
+
+    //form for adding entries to the service DB
+    router.get('/add', function(req, res, next)
+    {
+        //report user access to console
+        console.log('Somebody somewhere sent a GET to root/client/add');
+
+        var dum;
+
+        //render the home page
+        res.render('client_add', dum);
     });
 
     //do it!

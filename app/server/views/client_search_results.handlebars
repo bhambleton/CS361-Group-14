@@ -2,8 +2,60 @@
     <div id="homeButtonContainer">
         <a href="/client"><i class="servicesIcon fas fa-home"></i></a>
     </div>
+    <br/>
+    <span>{{#if username}}User: {{username}}{{/if}}</span>
 </header>
 <br><br>
+
+{{#if username}}{{#if isNotWork}}
+    <div id="providerDashContainer">
+        <br/>
+        <span><strong>Registered User Dashboard</strong></span>
+        <br/>
+        <div class="providerDashItemContainer">
+            <button class="navButton" id="editMasterToggle">
+                <i class="providerIcon fas fa-user-edit" id="editIcon" title="Edit a Service"></i>
+            </button>
+            <div class="providerDashItemLabel">
+                Edit
+            </div>
+        </div>
+
+
+        <div class="providerDashItemContainer">
+            <form action="/client/add" method="GET">
+                <input type="hidden" name="user" value="{{username}}"/>
+                <input type="hidden" name="swid" value="{{swid}}"/>
+                <input type="submit" class="navButton" id="addMasterButton">
+                <i class="providerIcon fas fa-plus" id="addIcon" title="Add a Service" ></i>
+                </input>
+                <div class="providerDashItemLabel">
+                    Add
+                </div>
+            </form>
+        </div>
+
+
+        <div class="providerDashItemContainer">
+            <button class="navButton" id="claimMasterToggle">
+                <i class="providerIcon fas fa-hand-paper" id="claimIcon" title="Claim Existing Service"></i>
+            </button>
+            <div class="providerDashItemLabel">
+                Claim
+            </div>
+        </div>
+
+        <div class="providerDashItemContainer">
+            <button class="navButton" id="deleteMasterToggle">
+                <i class="providerIcon fas fa-times" id="deleteIcon" title="Delete a Service"></i>
+            </button>
+            <div class="providerDashItemLabel">
+                Delete
+            </div>
+        </div>
+    </div>
+{{/if}}{{/if}}
+<br/>
 
 {{#if serverMessage}}
     <h1>SERVER MESSAGE</h1>
@@ -20,26 +72,42 @@
                 {{#each results}}
                 <li class="resultsItem" id="{{id}}">
                     <div class="servicesInfoContainer">
-                        <form id="{{id}}_editForm" action="/client/update_or_delete" method="POST">
-                            <button id="{{id}}_editToggle" type="button">Edit This Record</button>
-                            <input type="hidden" name="id" value="{{id}}"/>
-                            <input type="hidden" id="{{id}}_submit"/>
+                        <!--delete and edit forms for signed-in users-->
+                        {{#if ../username}}{{#if ../isNotWork}}
+                            <form id="{{id}}_deleteForm" action="/client/result_add_update_delete_claim" method="POST">
+                                <button id="{{id}}_delete" class="noDisplay" type="submit">Delete This Record</button>
+                                <input type="hidden" name="id" value="{{id}}"/>
+                                <input type="hidden" id="{{id}}_delete_submit"/>
+                                <input type="hidden" name="action" value="delete"/>
+                            </form>
+                            <form id="{{id}}_claimForm" action="/client/result_add_update_delete_claim" method="POST">
+                                <button id="{{id}}_claim" class="noDisplay" type="submit">Claim This Record</button>
+                                <input type="hidden" name="id" value="{{id}}"/>
+                                <input type="hidden" id="{{id}}_claim_submit"/>
+                                <input type="hidden" name="action" value="claim"/>
+                            </form>
+                            <form id="{{id}}_editForm" action="/client/result_add_update_delete_claim" method="POST">
+                                <button id="{{id}}_editToggle" class="noDisplay" type="button">Edit This Record</button>
+                                <input type="hidden" name="id" value="{{id}}"/>
+                                <input type="hidden" id="{{id}}_edit_submit"/>
+                                <input type="hidden" name="action" value="edit"/>
+                        {{/if}}{{/if}}
+                                <p class="infoLine"><span id="serviceName">{{name}}{{Title}}</span></p>
 
-                            <p class="infoLine"><span id="serviceName">{{name}}{{Title}}</span></p>
+                                <p class="infoLine"><span id="servicePhoneNumber">{{phone}}</span></p>
+                                <input type="text" id="{{id}}_phoneEdit" class="noDisplay" name="phone" placeholder="Edit phone number"/>
 
-                            <p class="infoLine"><span id="servicePhoneNumber">{{phone}}</span></p>
-                            <input type="text" id="{{id}}_phoneEdit" class="noDisplay" name="phone" placeholder="Edit phone number"/>
+                                <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
 
-                            <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
+                                <p class="infoLine"><span id="serviceStreet">{{address_street}}{{Street}}</span></p>
 
-                            <p class="infoLine"><span id="serviceStreet">{{address_street}}{{Street}}</span></p>
+                                <p class="infoLine"><span id="serviceCity">{{address_city}}{{City}}, </span><span id="serviceState">{{address_state}}</span> <span id="serviceZip">{{address_zip}}{{Zip}}</span>
 
-                            <p class="infoLine"><span id="serviceCity">{{address_city}}{{City}}, </span><span id="serviceState">{{address_state}}</span> <span id="serviceZip">{{address_zip}}{{Zip}}</span>
+                                </p>
+                                <br><strong>Notes</strong><br>
+                                <p class="infoLine">{{notes}}{{Description}}<br/><br/>{{URL}}</p>
 
-                            </p>
-                            <br><strong>Notes</strong><br>
-                            <p class="infoLine">{{notes}}{{Description}}<br/><br/>{{URL}}</p>
-                        </form>
+                        {{#if ../username}}{{#if ../isNotWork}}</form>{{/if}}{{/if}}
                     </div>
                 </li>
                 {{/each}}

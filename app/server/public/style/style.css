@@ -94,6 +94,7 @@ ul.navList li {
 .navButton {
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 input.navButton
@@ -243,9 +244,70 @@ div#loginBackdrop{
 }
 /* END LOGIN ITEMS */
 
+/*PROVIDER DASH*/
+
+.providerIcon{
+  font-size: 25px;
+  color: black;
+}
+
+div#providerDashContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  margin: auto;
+  width: 220px;
+  border-radius: 10px;
+  background-color: lightgrey;
+}
+
+div.providerInfoContainer{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+div.providerDashItemContainer {
+  padding: 15px;
+  flex-direction: column;
+  text-align: center;
+  width: 10%;
+}
+
+div.providerDashItemLabel {
+  display: flex;
+  justify-content: center;
+  font-family: Georgia;
+  font-weight: bold;
+}
+
+#dashMessage{
+  font-size: 10pt;
+}
+
+/* END PROVIDER DASH */
+
+/* ADD PAGE */
+div#addContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+  width: 400px;
+  border-radius: 10px;
+  background-color: lightgrey;
+}
+/* END ADD PAGE */
+
 /*MISC*/
 input[type=text].noDisplay {
  display: none;
+}
+
+button.noDisplay {
+  display: none;
 }
 
 a:active, a:visited {

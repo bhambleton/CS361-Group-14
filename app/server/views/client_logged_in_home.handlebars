@@ -2,13 +2,39 @@
     <div id="homeButtonContainer">
         <a href="/client"><i class="servicesIcon fas fa-home"></i></a>
     </div>
-    {{#if newUser}}New user successfully registered.{{/if}}Welcome, {{username}}. Please choose an option.
+    <br/>
+    <span>{{#if newUser}}New user successfully registered.{{/if}}Welcome, {{username}}. Please choose an option.</span>
 </header>
 <br><br>
 
 <span id="loadingMessage"></span>
 <br/>
+
 <div id="homepageContainer">
+    <div id="providerDashContainer">
+        <br/>
+        <span><strong>Registered User Dashboard</strong></span>
+        <br/>
+        <div class="providerDashItemContainer">
+            <form action="/client/add" method="GET">
+                <input type="hidden" name="user" value="{{username}}"/>
+                <input type="hidden" name="swid" value="{{swid}}"/>
+                <input type="submit" class="navButton" id="addMasterButton">
+                    <i class="providerIcon fas fa-plus" id="addIcon" title="Add a Service" ></i>
+                </input>
+                <div class="providerDashItemLabel">
+                    Add
+                </div>
+            </form>
+        </div>
+
+        <span id="dashMessage">(Perform a search for more options)</span>
+        <br/>
+
+    </div>
+
+    <br/>
+
     <form id="searchForm" action="/client/results" method="POST">
         <input type="text" name="username" value="{{username}}" class="noDisplay"/>
         <input type="text" name="swid" value="{{swid}}" class="noDisplay"/>

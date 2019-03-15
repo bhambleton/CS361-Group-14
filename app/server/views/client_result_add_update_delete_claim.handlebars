@@ -1,0 +1,15 @@
+<header>
+    <div id="homeButtonContainer">
+        <a href="/client"><i class="servicesIcon fas fa-home"></i></a>
+    </div>
+</header>
+<br><br>
+
+<h2>Record Update Status:</h2>
+<span>
+    {{#if message}}Server message: {{message}}){{/if}} <br/>
+    {{#if insertId}}Record added for ID: {{insertId}}{{/if}} <br/>
+    {{#if isDelete}}Delete Result: {{affectedRows}} record(s) deleted.{{/if}} <br/>
+    {{#if isClaim}}Successfully claimed record{{/if}} <br/>
+    {{#if error}}Error: {{error}}{{/if}}
+</span>
