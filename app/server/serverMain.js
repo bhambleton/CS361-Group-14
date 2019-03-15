@@ -28,7 +28,7 @@ app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.set('view engine', 'handlebars');
-app.set('port', 8658);
+app.set('port', 8657);
 app.set('mysql', mysql);
 
 //access control stuff that I don't think we need
