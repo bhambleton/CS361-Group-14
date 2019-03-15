@@ -20,14 +20,26 @@
                 {{#each results}}
                 <li class="resultsItem" id="{{id}}">
                     <div class="servicesInfoContainer">
-                        <p class="infoLine"><span id="serviceName">{{name}}{{Title}}</span></p>
-                        <p class="infoLine"><span id="servicePhoneNumber">{{phone}}</span></p>
-                        <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
-                        <p class="infoLine"><span id="serviceStreet">{{address_street}}{{Street}}</span></p>
-                        <p class="infoLine"><span id="serviceCity">{{address_city}}{{City}}, </span><span id="serviceState">{{address_state}}</span> <span id="serviceZip">{{address_zip}}{{Zip}}</span>
-                        </p>
-                        <br><strong>Notes</strong><br>
-                        <p class="infoLine">{{notes}}{{Description}}<br/><br/>{{URL}}</p>
+                        <form id="{{id}}_editForm" action="/client/update_or_delete" method="POST">
+                            <button id="{{id}}_editToggle" type="button">Edit This Record</button>
+                            <input type="hidden" name="id" value="{{id}}"/>
+                            <input type="hidden" id="{{id}}_submit"/>
+
+                            <p class="infoLine"><span id="serviceName">{{name}}{{Title}}</span></p>
+
+                            <p class="infoLine"><span id="servicePhoneNumber">{{phone}}</span></p>
+                            <input type="text" id="{{id}}_phoneEdit" class="noDisplay" name="phone" placeholder="Edit phone number"/>
+
+                            <p class="infoLine"><span id="serviceEmail">{{email}}</span></p>
+
+                            <p class="infoLine"><span id="serviceStreet">{{address_street}}{{Street}}</span></p>
+
+                            <p class="infoLine"><span id="serviceCity">{{address_city}}{{City}}, </span><span id="serviceState">{{address_state}}</span> <span id="serviceZip">{{address_zip}}{{Zip}}</span>
+
+                            </p>
+                            <br><strong>Notes</strong><br>
+                            <p class="infoLine">{{notes}}{{Description}}<br/><br/>{{URL}}</p>
+                        </form>
                     </div>
                 </li>
                 {{/each}}
@@ -39,3 +51,5 @@
 
     </div>
 {{/if}}
+
+<script src='/scripts/client.js'></script>

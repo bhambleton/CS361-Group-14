@@ -206,7 +206,7 @@ module.exports = function()
                 console.log("Checking DB for existing user");
 
                 //send the query
-                interfaceMysql.pool.query('SELECT username, password FROM RW_USER WHERE username = \'' + username + '\'', function (err, rows, fields)
+                interfaceMysql.pool.query('SELECT username, password, sw_id FROM RW_USER WHERE username = \'' + username + '\'', function (err, rows, fields)
                 {
                     if (err)
                     {
@@ -235,6 +235,7 @@ module.exports = function()
                         //define the fields in the template page to be rendered
                         var context = {};
                         context.username = rows[0].username;
+                        context.swid = rows[0].swid;
                         context.success = true;
                         context.newUser = false;
 
@@ -364,6 +365,7 @@ module.exports = function()
                                 //define the fields in the template page to be rendered
                                 var context = {};
                                 context.username = username;
+                                context.swid = swid;
                                 context.success = true;
                                 context.newUser = true;
 
@@ -377,6 +379,40 @@ module.exports = function()
 
             }
         }
+    });
+
+    //for editing or deleting entries in the service DB
+    router.post('/update_or_delete', function(req, res, next)
+    {
+        //report user access to console
+        console.log('Somebody somewhere sent a POST to root/client/');
+
+        //store the user parameters stored in the request body into a GLOBAL variable
+        userParams = req.body;
+
+        //log to server console whatever the user requested
+        console.log('POST request contained:');
+        console.log(userParams);
+
+        //process update
+        //define strings
+
+        /*
+        //send query
+        var interfaceMysql = req.app.get('mysql');
+        interfaceMysql.pool.query('', function (err, rows)
+        {
+            if (err)
+            {
+                next(err);
+                return;
+            }
+
+            console.log('returned rows: ');
+            console.log(rows);
+        */
+        res.send("actual update/edit capability coming soon...");
+        //})
     });
 
     //do it!

@@ -12,27 +12,21 @@ function validateZipCode(inputZip) {
     return regex.test(inputZip);
 }
 
-//find buttons
-var buttons = document.getElementsByTagName('input');
+//find inputs
+var inputs = document.getElementsByTagName('input');
 
 //debug
 //console.log('client.js is adding event listeners to buttons, of which there are ' + buttons.length);
 
-//loop through event listener and set on all buttons, passing thxe button's id so the server knows which button was clicked
-for (var i = 0; i < buttons.length; i++)
+//loop through inputs and put event listeners on as appropriate
+for (var i = 0; i < inputs.length; i++)
 {
     //set cur button
-    var b = buttons[i];
+    var b = inputs[i];
 
-    //ignore any non-button inputs
-    if (b.getAttribute("type") !== "radio" || b.getAttribute("name") !== "resourceType")
-    {
-        //do nothing
-
-        //debug
-        //console.log("cur input is not a button, so do nothing");
-    }
-    else
+    //check input properties to set correct event listener
+    //resource type buttons
+    if (b.getAttribute("name") === "resourceType")
     {
         //debug
         //console.log("adding event listener to button " + b + " which has id " + b.id);
@@ -66,5 +60,54 @@ for (var i = 0; i < buttons.length; i++)
                 }
             };
         }(b.value));
+    }
+    else
+    {
+        //do nothing
+    }
+}
+
+//edit/delete buttons - hide/display fields for row
+var buttons = document.getElementsByTagName("button");
+
+//loop through them and set event listener
+for (var c = 0; c < buttons.length; c++)
+{
+    console.log(c);
+    console.log(buttons[c].getAttribute("id").substr(-10,10));
+
+    //if it's an edit toggle button, add the event listener that sets it to toggle the edit fields for the row
+    if (buttons[c].getAttribute("id").substr(-10,10) === "editToggle")
+    {
+        //get the id of the service in the cur row
+        var curID = buttons[c].nextElementSibling.getAttribute("value");
+
+        //debug
+        //console.log(curID);
+
+        //add the event listener
+        buttons[c].addEventListener('click', function (id)
+        {
+            return function()
+            {
+                //find fields
+                var curPhoneEditElem = document.getElementById(id + "_phoneEdit");
+                var submitElem = document.getElementById(id + "_submit");
+
+                //toggle their visibility with class info
+                if (curPhoneEditElem.classList.contains("noDisplay"))
+                {
+                    curPhoneEditElem.classList.remove("noDisplay");
+                    submitElem.classList.remove("noDisplay");
+                    submitElem.setAttribute("type","submit");
+                }
+                else
+                {
+                    curPhoneEditElem.classList.add("noDisplay");
+                    submitElem.classList.add("noDisplay");
+                    submitElem.setAttribute("type","hidden");
+                }
+            }
+        }(curID));
     }
 }

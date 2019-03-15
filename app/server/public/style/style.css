@@ -243,6 +243,12 @@ div#loginBackdrop{
 }
 /* END LOGIN ITEMS */
 
+/*MISC*/
+input[type=text].noDisplay {
+ display: none;
+}
+
 a:active, a:visited {
   text-decoration: none;
 }
+/*END MISC*/
